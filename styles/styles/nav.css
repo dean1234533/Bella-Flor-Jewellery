@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── NAV BASE ── */
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  background-color: #000000; /* Solid Black */
+  height: auto;
+  padding: 0 20px;
+  transition: all 1.2s;
+  z-index: 100;
+  top: 0;
+  font-family: 'Montserrat', sans-serif; /* Added text style */
+}
+
+.nav-logo img {
+  display: block;
+  margin: -10px 0;
+  width: clamp(180px, 20vw, 200px);
+  margin-left: -20px;
+}
+
+/* ── HAMBURGER BUTTON ── */
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 4;
+}
+
+.line1,
+.line2,
+.line3 {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #ffffff; /* Forced consistent white/light gray */
+  transition: all 0.4s ease;
+  transform-origin: center;
+}
+
+/* Hamburger → X */
+.Active .line1 {
+  transform: translateY(7px) rotate(45deg);
+  transition: ease 0.8s;
+  background-color: white; /* Switch to black when menu is open on light background */
+}
+.Active .line2 {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: ease 0.8s;
+}
+.Active .line3 {
+  transform: translateY(-7px) rotate(-45deg);
+  transition: ease 0.8s;
+  background-color: white /* Switch to black when menu is open */
+}
+
+/* ── MOBILE MENU ── */
+.navBar ul {
+  display: none;
+  list-style: none;
+}
+
+/* ── MOBILE MENU DROPDOWN ── */
+.Active ul {
+  display: block;
+  position: absolute;
+  top: 60px; /* Slightly lower to clear the fixed bar */
+  right: 20px;
+  /* CHANGE: Use solid white for consistency */
+  background-color: #ffffff !important; 
+  width: 220px;
+  border-radius: 12px;
+  /* CHANGE: A cleaner border and shadow so it stands out on light pages */
+  border: 1px solid rgba(0,0,0,0.1); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 999;
+  padding: 15px 0;
+  margin-top: 40px;
+}
+
+.Active ul li {
+  margin: 15px 0;
+  text-align: center;
+  
+}
+
+.Active ul li a {
+  text-decoration: none;
+  color: #111111; /* Solid black text for the dropdown links */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  display: block;
+  width: 100%;
+  transition: color 0.3s;
+  margin-bottom: 30px;
+
+}
+
+.Active ul li a:hover {
+  color: #b30018; /* Brand red on hover */
+}
+
+.nav-desktop-container {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-desktop-container {
+    background-color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-family: 'Montserrat', sans-serif; /* Added text style */
+  }
+
+  .nav-desktop {
+    display: flex;
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .nav-desktop a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500; /* Montserrat looks better at 500 than Bold */
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .logoContainer img {
+    width: 220px;
+    display: block;
+    margin: -10px 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navBar {
+    display: none;
+  }
+}

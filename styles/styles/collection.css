@@ -1,0 +1,512 @@
+/* =============================================
+   COLLECTION PAGE — collection.css
+   ============================================= */
+
+.collection-page {
+  padding-top: 70px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
+  font-family: 'Montserrat', sans-serif; /* Added base font */
+}
+
+/* Brand header */
+.collection-header {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.collection-header-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.collection-header-rule span {
+  display: block;
+  height: 1px;
+  width: 40px;
+  background: var(--brown);
+}
+
+.collection-header h1 {
+  font-family: 'Libre Baskerville', serif; /* Added Serif */
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 400; /* Adjusted for elegance */
+  letter-spacing: 0.15em; /* Increased spacing */
+  color: var(--text-dark);
+  text-transform: uppercase;
+}
+
+.collection-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em; /* Widened for luxury feel */
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  gap: 0.6rem;
+  padding: 1.4rem 1.5rem 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 6px 20px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em; /* Increased spacing */
+  text-transform: uppercase;
+  transition: all 0.25s;
+  font-family: 'Montserrat', sans-serif; /* Swapped to Montserrat */
+  font-weight: 500;
+}
+
+.filter-btn.active {
+  border-color: var(--text-dark);
+  background: var(--text-dark);
+  color: var(--cream);
+}
+
+.filter-btn:hover:not(.active) {
+  border-color: var(--brown);
+  color: var(--brown);
+}
+
+/* Carousel wrapper */
+.carousel-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  width: 100%;
+}
+
+/* Nav arrows */
+.carousel-arrow {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  transition: border-color 0.25s, color 0.25s;
+}
+
+.carousel-arrow:hover {
+  border-color: var(--brown);
+  color: var(--brown);
+}
+
+/* Cards track */
+.cards-track {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Card */
+.bracelet-card {
+  flex: 1;
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.35s;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.55;
+  transform: scale(0.97);
+}
+
+.bracelet-card.main {
+  border: 1.5px solid var(--brown);
+  opacity: 1;
+  transform: scale(1);
+  flex: 1.4;
+}
+
+/* Image placeholder area */
+.card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  background: var(--cream);
+}
+
+.card-tag-flag {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  background: var(--brown);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  font-family: 'Montserrat', sans-serif; /* Added font */
+}
+
+.card-initials {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(156,122,74,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--brown);
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
+}
+
+.card-add-photo {
+  font-size: 0.65rem;
+  color: var(--brown);
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Card image — real photo if available */
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+/* Card body */
+.card-body {
+  padding: 1rem 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-tag-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--cream);
+  color: #7A5D2F;
+  margin-bottom: 0.7rem;
+  align-self: flex-start;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card-name {
+  color: var(--text-dark);
+  margin-bottom: 0.3rem;
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.card-material {
+  font-size: 0.65rem;
+  color: #9C917E;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+.card-description {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  flex: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300; /* Lighter weight */
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.card-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
+}
+
+.card-view-btn {
+  padding: 8px 16px;
+  background: var(--text-dark);
+  color: var(--cream);
+  border: none;
+  border-radius: 4px; /* Slightly sharper */
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.25s;
+  font-family: 'Montserrat', sans-serif; /* Swapped to Montserrat */
+}
+
+.card-view-btn:hover {
+  background: #3a2e24;
+  color:white
+}
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.8rem;
+}
+
+.carousel-dot {
+  height: 2px;
+  background: var(--border);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s;
+  width: 8px;
+}
+
+.carousel-dot.active {
+  background: var(--brown);
+  width: 24px;
+}
+
+/* Counter */
+.carousel-counter {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #C4BAB0;
+  letter-spacing: 0.18em;
+  padding-bottom: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+footer {
+    background-color:#f9f9f7;
+    color:black;
+    padding: 40px 20px 20px 20px;
+    font-family: "Libre Baskerville", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ... Rest of your footer and media queries remain identical ... */
+
+.footerLogoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  width: 100%;           
+  margin-bottom: 30px;
+}
+
+.footerLogo {
+  width: 180px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+ 
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer a:hover {
+  color: #b30018;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-bottom a {
+  display: inline;
+  margin-left: 10px;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+ .footer-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+  .bracelet-card:not(.main) {
+    display: none;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    margin-top: 100px;
+  }
+
+  .card-initials {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+}
+footer a:hover {
+    color: #b30018;
+}
+
+.footer-col a img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 20px auto 0;
+    text-align: center;
+     border-top:1px solid black ;
+}
+
+.footer-bottom p {
+    font-size: clamp(10px, 2vw, 13px);
+    color: black;
+    margin: 0;
+    width: auto;
+}
+
+.footer-bottom a {
+    display: inline;
+    color: black;
+    margin-left: 12px;
+    font-size: inherit;
+}
+
+.footer-bottom a:hover {
+    color: #b30018;
+}
+
+.footerItems {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.footerLogo{
+
+  width: 180px;
+ 
+
+}
+
+.footerLogoContainer{display: flex;flex-direction: column;justify-self: center !important;}
+
+@media (min-width: 768px) {
+
+
+ .footer-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+        
+    }
+
+@media (max-width: 767px) {
+  .bracelet-card:not(.main) {
+    display: none;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    margin-top: 100px;
+  }
+
+  .card-initials {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+}

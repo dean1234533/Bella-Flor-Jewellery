@@ -1,0 +1,293 @@
+/* =============================================
+   ABOUT PAGE — about.css
+   ============================================= */
+
+.about-page {
+  padding-top: 70px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
+  /* ADDED BASE FONT */
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Hero banner */
+.about-banner {
+  background: var(--dark);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.about-banner h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--gold-light);
+  letter-spacing: 0.15em; /* AMENDED */
+  font-weight: 300;
+  margin-bottom: 0.6rem;
+  /* ADDED SERIF */
+  font-family: 'Libre Baskerville', serif;
+  text-transform: uppercase;
+}
+
+.about-banner p {
+  font-size: 0.85rem; /* AMENDED */
+  color: var(--gold-mid);
+  letter-spacing: 0.25em; /* AMENDED */
+  text-transform: uppercase;
+  /* ADDED WEIGHT */
+  font-weight: 500;
+}
+
+/* Decorative line */
+.about-banner-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.about-banner-line span {
+  display: block;
+  height: 1px;
+  width: 60px;
+  background: rgba(212,175,55,0.4);
+}
+
+.about-banner-diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+/* Main content */
+.about-content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 4rem;
+}
+
+/* 1. Add text-align: center to the container */
+.about-section {
+  margin-bottom: 3.5rem;
+  flex-direction: column;
+  justify-self: center;
+  display: flex;
+}
+
+.about-section h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--text-dark);
+  letter-spacing: 0.06em; /* AMENDED */
+  margin-bottom: 1.2rem;
+  position: relative;
+  display: inline-block;
+  /* ADDED SERIF & ITALIC */
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+}
+
+/* 2. Fix the underline (::after) margin */
+.about-section h2::after {
+  content: '';
+  display: block;
+  height: 1.5px;
+  width: 40px;
+  background: var(--gold-mid);
+  margin: 0.5rem auto 0; 
+}
+
+/* 3. Reset text-alignment for paragraph */
+.about-section p {
+  color: #555;
+  line-height: 2; /* AMENDED for luxury feel */
+  font-size: 1rem;
+  font-weight: 300; /* AMENDED to Light */
+  text-align: left;
+  /* ADDED SPACING */
+  letter-spacing: 0.01em;
+}
+
+/* Image */
+.about-image-wrap {
+  margin: 3rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-image-wrap img {
+  width: 100%;
+  height: clamp(300px, 60vw, 400px);
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: grayscale(0.15);
+}
+
+/* Offer list */
+.about-offer-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 0;
+}
+
+.about-offer-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.98rem;
+  /* ADDED WEIGHT */
+  font-weight: 400;
+}
+
+.offer-bullet {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--gold-mid);
+  transform: rotate(45deg);
+  margin-top: 0.55rem;
+}
+
+/* CTA */
+.about-cta {
+  text-align: center;
+  padding: 2.5rem 0 0;
+  border-top: 0.5px solid var(--border);
+  margin-top: 3rem;
+}
+
+.about-cta p {
+  color: #666;
+  margin-bottom: 1.4rem;
+  font-size: 1.05rem; /* AMENDED */
+  letter-spacing: 0.02em;
+  /* ADDED SERIF */
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+}
+
+.about-cta a {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding: 12px 30px; /* AMENDED */
+  border-radius: 2px; /* AMENDED for designer look */
+  /* ADDED TEXT STYLE */
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+/* ... Footer styles ... */
+footer {
+    background-color:#f9f9f7;
+    color:black;
+    padding: 40px 20px 20px 20px;
+    font-family: "Libre Baskerville", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ... Rest of your footer and media queries remain identical ... */
+
+.footerLogoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.footerLogo {
+  width: 180px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+ 
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer a:hover {
+  color: #b30018;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-bottom a {
+  display: inline;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+/* Responsive Queries */
+@media (max-width: 600px) {
+  .about-content {
+    padding: 2.5rem 1.2rem 3rem;
+  }
+  
+  .about-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
