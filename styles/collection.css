@@ -270,8 +270,8 @@
 .card-view-btn {
   padding: 8px 16px;
   background: var(--text-dark);
-  color: blue;
-  border: none;
+  color:blaxk;
+  border: 1px solid rgba(119, 115, 115, 0.337);
   border-radius: 4px ; /* Slightly sharper */
   font-size: 0.72rem;
   font-weight: 600;
