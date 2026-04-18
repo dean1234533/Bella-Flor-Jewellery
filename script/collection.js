@@ -224,6 +224,7 @@
 
   let currentFilter = "All";
   let currentIndex = 0;
+  let isAnimating = false; // prevent rapid clicking during transition
 
   function getFiltered() {
     if (currentFilter === "All") return pieces;
@@ -235,14 +236,16 @@
   }
 
   function buildCard(piece, position) {
-    // position: -1 = left, 0 = main, 1 = right
     const isMain = position === 0;
     const card = document.createElement("div");
     card.className = "bracelet-card" + (isMain ? " main" : "");
 
     card.innerHTML = `
-     <div class="card-image" style="background:${piece.color}">
-    ${piece.Image ? `<img src="${piece.Image}" class="card-img-content" alt="${piece.name}">` : `<div class="card-initials">${initials(piece.name)}</div>`}
+      <div class="card-image" style="background:${piece.color}">
+        ${piece.Image
+          ? `<img src="${piece.Image}" class="card-img-content" alt="${piece.name}">`
+          : `<div class="card-initials">${initials(piece.name)}</div>`
+        }
         <div class="card-tag-flag">${piece.tag}</div>
         <span class="card-add-photo">Add photo</span>
       </div>
@@ -252,40 +255,17 @@
         <p class="card-material">${piece.material}</p>
         <p class="card-description">${piece.description}</p>
         <div class="card-footer">
-  <span class="card-price">${piece.price}</span>
-  <a href="${piece.link}" target="_blank" class="card-view-link">
-    <button class="card-view-btn">Buy Now</button>
-  </a>
-</div>
+          <span class="card-price">${piece.price}</span>
+          <a href="${piece.link}" target="_blank" class="card-view-link">
+            <button class="card-view-btn">Buy Now</button>
+          </a>
+        </div>
       </div>
     `;
     return card;
   }
 
-  function renderCarousel() {
-    const filtered = getFiltered();
-    const total = filtered.length;
-    if (total === 0) return;
-
-    // Clamp index
-    if (currentIndex >= total) currentIndex = 0;
-
-    const track = document.getElementById("cards-track");
-    track.innerHTML = "";
-
-    const isMobile = window.innerWidth < 768;
-
-    if (isMobile) {
-      track.appendChild(buildCard(filtered[currentIndex], 0));
-    } else {
-      const offsets = [-1, 0, 1];
-      offsets.forEach(offset => {
-        const idx = (currentIndex + offset + total) % total;
-        track.appendChild(buildCard(filtered[idx], offset));
-      });
-    }
-
-    // Dots
+  function updateDotsAndCounter(filtered, total) {
     const dotsEl = document.getElementById("carousel-dots");
     dotsEl.innerHTML = "";
     filtered.forEach((_, i) => {
@@ -293,15 +273,102 @@
       dot.className = "carousel-dot" + (i === currentIndex ? " active" : "");
       dot.setAttribute("aria-label", `Go to item ${i + 1}`);
       dot.addEventListener("click", () => {
+        if (isAnimating) return;
+        const dir = i > currentIndex ? "next" : "prev";
         currentIndex = i;
-        renderCarousel();
+        renderCarousel(dir);
       });
       dotsEl.appendChild(dot);
     });
 
-    // Counter
     document.getElementById("carousel-counter").textContent =
       String(currentIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+  }
+
+  function insertCards(track, filtered, total, isMobile) {
+    track.innerHTML = "";
+    if (isMobile) {
+      track.appendChild(buildCard(filtered[currentIndex], 0));
+    } else {
+      [-1, 0, 1].forEach(offset => {
+        const idx = (currentIndex + offset + total) % total;
+        track.appendChild(buildCard(filtered[idx], offset));
+      });
+    }
+  }
+
+  function renderCarousel(direction) {
+    const filtered = getFiltered();
+    const total = filtered.length;
+    if (total === 0) return;
+    if (currentIndex >= total) currentIndex = 0;
+
+    const track = document.getElementById("cards-track");
+    const isMobile = window.innerWidth < 768;
+
+    // Update dots/counter immediately so they feel responsive
+    updateDotsAndCounter(filtered, total);
+
+    // No direction means first render — just draw instantly
+    if (!direction) {
+      insertCards(track, filtered, total, isMobile);
+      return;
+    }
+
+    // Lock during animation
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const slideOut = direction === "next" ? "-50px" : "50px";
+    const slideIn  = direction === "next" ?  "50px" : "-50px";
+
+    // Step 1: animate current cards OUT
+    const outgoingCards = track.querySelectorAll(".bracelet-card");
+    outgoingCards.forEach(card => {
+      card.style.transition = "transform 0.22s ease, opacity 0.22s ease";
+      card.style.opacity = "0";
+      card.style.transform = card.classList.contains("main")
+        ? `translateX(${slideOut}) scale(1)`
+        : `translateX(${slideOut}) scale(0.97)`;
+    });
+
+    // Step 2: after exit, swap content and animate IN
+    setTimeout(() => {
+      insertCards(track, filtered, total, isMobile);
+
+      // Start incoming cards off-screen
+      const incomingCards = track.querySelectorAll(".bracelet-card");
+      incomingCards.forEach(card => {
+        card.style.transition = "none";
+        card.style.opacity = "0";
+        card.style.transform = card.classList.contains("main")
+          ? `translateX(${slideIn}) scale(1)`
+          : `translateX(${slideIn}) scale(0.97)`;
+      });
+
+      // Force reflow so the "none" transition registers before we animate
+      track.offsetHeight;
+
+      // Step 3: animate incoming cards IN
+      incomingCards.forEach(card => {
+        card.style.transition = "transform 0.28s ease, opacity 0.28s ease";
+        card.style.opacity = card.classList.contains("main") ? "1" : "";
+        card.style.transform = card.classList.contains("main")
+          ? "translateX(0) scale(1)"
+          : "translateX(0) scale(0.97)";
+      });
+
+      setTimeout(() => {
+        // Clean up inline styles so CSS classes take over cleanly
+        incomingCards.forEach(card => {
+          card.style.transition = "";
+          card.style.transform = "";
+          card.style.opacity = "";
+        });
+        isAnimating = false;
+      }, 280);
+
+    }, 220);
   }
 
   function init() {
@@ -312,27 +379,29 @@
         this.classList.add("active");
         currentFilter = this.dataset.filter;
         currentIndex = 0;
-        renderCarousel();
+        renderCarousel(); // no direction — instant swap on filter change
       });
     });
 
     // Arrow buttons
     document.getElementById("prev-btn").addEventListener("click", () => {
+      if (isAnimating) return;
       const filtered = getFiltered();
       currentIndex = (currentIndex - 1 + filtered.length) % filtered.length;
-      renderCarousel();
+      renderCarousel("prev");
     });
 
     document.getElementById("next-btn").addEventListener("click", () => {
+      if (isAnimating) return;
       const filtered = getFiltered();
       currentIndex = (currentIndex + 1) % filtered.length;
-      renderCarousel();
+      renderCarousel("next");
     });
 
-    // Resize — re-render for mobile/desktop switch
-    window.addEventListener("resize", renderCarousel);
+    // Resize — re-render instantly
+    window.addEventListener("resize", () => renderCarousel());
 
-    renderCarousel();
+    renderCarousel(); // initial paint
   }
 
   document.addEventListener("DOMContentLoaded", init);
