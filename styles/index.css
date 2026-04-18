@@ -159,100 +159,71 @@ footer {
     font-style: normal;
 }
 
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* ... Rest of your footer and media queries remain identical ... */
+
+.footerLogoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.footer-col p {
-    padding: 0;
-    margin-block: 20px;
-    line-height: 2.6rem;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.footer-columns {
-    gap: 32px;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.footer-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(14px, 2.5vw, 16px);
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
-footer p {
-    margin: 0 0 8px 0;
-    width: auto;
-    text-align: left;
-}
-
-footer a {
-    text-decoration: none;
-    color:black;
-    text-align: left;
-    margin-left: 0;
-    margin-top: 0;
-    display: block;
-    padding: 4px 0;
-    font-size: clamp(13px, 2vw, 15px);
-    transition: color 0.2s ease;
-    font-family: 'Montserrat', sans-serif;
-}
-
-footer a:hover {
-    color: #b30018;
-}
-
-.footer-col a img {
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-.footer-bottom {
-    max-width: 1100px;
-    margin: 20px auto 0;
-    text-align: center;
-    border-top: 1px solid black;
-}
-
-.footer-bottom p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(10px, 2vw, 13px);
-    color: black;
-    margin: 0;
-    width: auto;
-}
-
-.footer-bottom a {
-    display: inline;
-    color: black;
-    margin-left: 12px;
-    font-size: inherit;
-}
-
-.footer-bottom a:hover {
-    color: #b30018;
-}
-
-.footerItems {
-    display: flex;
-    flex-direction: column;
-}
-
-.footerLogo{
+.footerLogo {
   width: 180px;
 }
 
-.footerLogoContainer{display: flex;flex-direction: column;justify-self: center !important;}
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #ddd;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer a:hover {
+  color: #b30018;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-bottom a {
+  display: inline;
+  margin-left: 10px;
+  font-size: 12px;
+}
 
 @media (min-width: 768px) {
  .footer-columns {
