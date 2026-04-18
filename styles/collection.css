@@ -267,9 +267,9 @@
 .card-view-btn {
   padding: 8px 16px;
   background: var(--text-dark);
-  color: var(--cream);
+  color: blue;
   border: none;
-  border-radius: 4px; /* Slightly sharper */
+  border-radius: 4px ; /* Slightly sharper */
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -377,7 +377,7 @@ footer a {
 }
 
 footer a:hover {
-  color: #b30018;
+  color: #a55b2d;
 }
 
 .footer-bottom {
@@ -427,9 +427,7 @@ footer a:hover {
     padding: 1rem 0.5rem;
   }
 }
-footer a:hover {
-    color: #b30018;
-}
+
 
 .footer-col a img {
     vertical-align: middle;
@@ -457,9 +455,7 @@ footer a:hover {
     font-size: inherit;
 }
 
-.footer-bottom a:hover {
-    color: #b30018;
-}
+
 
 .footerItems {
     display: flex;
