@@ -14,6 +14,7 @@
       color: "#F5ECD9",
       tag: "Bestseller",
       Image: "./images/IMG_9296.JPG",
+      link: "https://square.link/u/QX64XqDC",
     },
     {
       id: 2,
@@ -25,6 +26,7 @@
       color: "#E8D9F0",
       tag: "New Arrival",
       Image: "./images/IMG_9290.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 3,
@@ -36,6 +38,7 @@
       color: "#D0D8F0",
       tag: "Popular",
       Image: "./images/IMG_9289.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 4,
@@ -47,6 +50,7 @@
       color: "#C8D4F0",
       tag: "Exclusive",
       Image: "./images/IMG_9288.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 5,
@@ -58,6 +62,7 @@
       color: "#F9E8E8",
       tag: "Bestseller",
       Image: "./images/IMG_9287.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 6,
@@ -69,6 +74,7 @@
       color: "#EDE0F5",
       tag: "Limited",
       Image: "./images/IMG_9282.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 7,
@@ -80,6 +86,7 @@
       color: "#E8E8E8",
       tag: "New Arrival",
       Image: "./images/IMG_9264.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 8,
@@ -91,6 +98,7 @@
       color: "#F5E0E8",
       tag: "Bestseller",
       Image: "./images/IMG_9263.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 9,
@@ -102,6 +110,7 @@
       color: "#D0E8F5",
       tag: "Artisan Pick",
       Image: "./images/IMG_9262.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 10,
@@ -113,6 +122,7 @@
       color: "#F0D8E8",
       tag: "Artisan Pick",
       Image: "./images/IMG_9261.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 11,
@@ -124,6 +134,7 @@
       color: "#F5DDD0",
       tag: "Artisan Pick",
       Image: "./images/IMG_9260.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 12,
@@ -135,6 +146,7 @@
       color: "#E0D0F0",
       tag: "Artisan Pick",
       Image: "./images/IMG_9259.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 13,
@@ -146,6 +158,7 @@
       color: "#ECECEC",
       tag: "Artisan Pick",
       Image: "./images/IMG_9258.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 14,
@@ -157,6 +170,7 @@
       color: "#D8D0F0",
       tag: "Artisan Pick",
       Image: "./images/IMG_9257.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 15,
@@ -168,6 +182,7 @@
       color: "#F5EAD9",
       tag: "Artisan Pick",
       Image: "./images/IMG_9256.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 16,
@@ -179,6 +194,7 @@
       color: "#E8E8E8",
       tag: "Artisan Pick",
       Image: "./images/IMG_9255.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 17,
@@ -190,6 +206,7 @@
       color: "#E0F0F5",
       tag: "Artisan Pick",
       Image: "./images/IMG_9253.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
     {
       id: 18,
@@ -201,6 +218,7 @@
       color: "#F5ECD9",
       tag: "Bestseller",
       Image: "./images/IMG_9252.JPG",
+      link: "https://yourshop.com/products/ivory-weave-bangle",
     },
   ];
 
@@ -234,9 +252,11 @@
         <p class="card-material">${piece.material}</p>
         <p class="card-description">${piece.description}</p>
         <div class="card-footer">
-          <span class="card-price">${piece.price}</span>
-          <button class="card-view-btn">Buy Now</button>
-        </div>
+  <span class="card-price">${piece.price}</span>
+  <a href="${piece.link}" target="_blank" class="card-view-link">
+    <button class="card-view-btn">Buy Now</button>
+  </a>
+</div>
       </div>
     `;
     return card;

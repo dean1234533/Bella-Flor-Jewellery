@@ -6,6 +6,7 @@
   padding-top: 70px;
   min-height: 100vh;
   background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
+  font-family: 'Montserrat', sans-serif; /* Added base font */
 }
 
 /* Brand header */
@@ -31,17 +32,21 @@
 }
 
 .collection-header h1 {
+  font-family: 'Libre Baskerville', serif; /* Added Serif */
   font-size: clamp(1.4rem, 4vw, 1.9rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-weight: 400; /* Adjusted for elegance */
+  letter-spacing: 0.15em; /* Increased spacing */
   color: var(--text-dark);
+  text-transform: uppercase;
 }
 
 .collection-tagline {
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.78rem;
   color: var(--text-muted);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.2em; /* Widened for luxury feel */
   margin-top: 0.4rem;
+  text-transform: uppercase;
 }
 
 /* Filter bar */
@@ -59,10 +64,12 @@
   border: 0.5px solid var(--border);
   background: transparent;
   color: var(--text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em; /* Increased spacing */
+  text-transform: uppercase;
   transition: all 0.25s;
-  font-family: 'Jost', sans-serif;
+  font-family: 'Montserrat', sans-serif; /* Swapped to Montserrat */
+  font-weight: 500;
 }
 
 .filter-btn.active {
@@ -147,7 +154,6 @@
   gap: 0.5rem;
   position: relative;
   background: var(--cream);
- 
 }
 
 .card-tag-flag {
@@ -158,9 +164,10 @@
   color: #fff;
   font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: 4px 12px;
+  font-family: 'Montserrat', sans-serif; /* Added font */
 }
 
 .card-initials {
@@ -173,13 +180,14 @@
   justify-content: center;
   font-size: 1.1rem;
   color: var(--brown);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
 }
 
 .card-add-photo {
   font-size: 0.65rem;
   color: var(--brown);
   letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Card image — real photo if available */
@@ -211,31 +219,35 @@
   color: #7A5D2F;
   margin-bottom: 0.7rem;
   align-self: flex-start;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .card-name {
-  font-size: 0.95rem;
-  font-weight: 500;
   color: var(--text-dark);
   margin-bottom: 0.3rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .card-material {
-  font-size: 0.67rem;
+  font-size: 0.65rem;
   color: #9C917E;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 0.6rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 
 .card-description {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  line-height: 1.65;
+  line-height: 1.7;
   margin-bottom: 1rem;
   flex: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300; /* Lighter weight */
 }
 
 .card-footer {
@@ -246,10 +258,10 @@
 }
 
 .card-price {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--text-dark);
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Libre Baskerville', serif; /* Swapped to Serif */
 }
 
 .card-view-btn {
@@ -257,12 +269,13 @@
   background: var(--text-dark);
   color: var(--cream);
   border: none;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  border-radius: 4px; /* Slightly sharper */
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   transition: background 0.25s;
-  font-family: 'Jost', sans-serif;
+  font-family: 'Montserrat', sans-serif; /* Swapped to Montserrat */
 }
 
 .card-view-btn:hover {
@@ -298,10 +311,12 @@
 /* Counter */
 .carousel-counter {
   text-align: center;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: #C4BAB0;
   letter-spacing: 0.18em;
   padding-bottom: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
 }
 
 footer {
@@ -337,9 +352,10 @@ footer {
 .footer-heading {
     font-size: clamp(14px, 2.5vw, 16px);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em; /* Increased spacing */
     text-transform: uppercase;
     margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif; /* Added font */
 }
 
 footer p {
@@ -358,8 +374,87 @@ footer a {
     padding: 4px 0;
     font-size: clamp(13px, 2vw, 15px);
     transition: color 0.2s ease;
+    font-family: 'Montserrat', sans-serif; /* Added font */
 }
 
+footer a:hover {
+    color: #b30018;
+}
+
+.footer-col a img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 20px auto 0;
+    text-align: center;
+    border-top:1px solid black ;
+}
+
+.footer-bottom p {
+    font-size: clamp(10px, 2vw, 13px);
+    color: black;
+    margin: 0;
+    width: auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-bottom a {
+    display: inline;
+    color: black;
+    margin-left: 12px;
+    font-size: inherit;
+}
+
+.footer-bottom a:hover {
+    color: #b30018;
+}
+
+.footerItems {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.footerLogo{
+  width: 180px;
+}
+
+.footerLogoContainer{display: flex;flex-direction: column;justify-self: center !important;}
+
+@media (min-width: 768px) {
+ .footer-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+  .bracelet-card:not(.main) {
+    display: none;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    margin-top: 100px;
+  }
+
+  .card-initials {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+}
 footer a:hover {
     color: #b30018;
 }
@@ -407,9 +502,7 @@ footer a:hover {
 
 }
 
-.footerLogoContainer{display: flex;flex-direction: column;justify-self: center;}
-
-.footerLogoContainer p{text-align: center;}
+.footerLogoContainer{display: flex;flex-direction: column;justify-self: center !important;}
 
 @media (min-width: 768px) {
 

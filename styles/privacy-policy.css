@@ -1,0 +1,205 @@
+* {
+    box-sizing: border-box;
+    /* overflow-x: hidden;  <-- REMOVE THIS LINE */
+}
+
+/* ADD THIS: Apply it here instead */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+body {
+    color: black;
+    background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    overflow-y: hidden;
+    /* TEXT STYLE: Updated to Libre Baskerville */
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(40px, 5vw, 48px);
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    overflow-y: hidden;
+    /* TEXT STYLE: Updated to Libre Baskerville */
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(30px, 5vw, 34px);
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    /* TEXT STYLE: Updated to Libre Baskerville */
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(22px, 5vw, 26px);
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-y: hidden;
+}
+
+ol {
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(15px, 5vw, 17px);
+}
+
+hr {
+    width: 100%;
+}
+
+.content-container {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    padding-top: 120px;
+}
+
+.List-Container li {
+    margin-bottom: 30px;
+    line-height: 1.5rem;
+    /* TEXT STYLE: Ensuring Montserrat carries through */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.List ol {
+    max-width: 650px;
+    text-align: left;
+    margin: 0 auto;
+}
+
+footer {
+    background-color:#f9f9f7;
+    color:black;
+    padding: 40px 20px 20px 20px;
+    /* TEXT STYLE: Already using Libre Baskerville */
+    font-family: "Libre Baskerville", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-col p {
+    padding: 0;
+    margin-block: 20px;
+    line-height: 2.6rem;
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-columns {
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-heading {
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+footer p {
+    margin: 0 0 8px 0;
+    width: auto;
+    text-align: left;
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+}
+
+footer a {
+    text-decoration: none;
+    color:black;
+    text-align: left;
+    margin-left: 0;
+    margin-top: 0;
+    display: block;
+    padding: 4px 0;
+    font-size: clamp(13px, 2vw, 15px);
+    transition: color 0.2s ease;
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+}
+
+footer a:hover {
+    color: #b30018;
+}
+
+.footer-col a img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 20px auto 0;
+    text-align: center;
+    border-top: 1px solid black;
+}
+
+.footer-bottom p {
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(10px, 2vw, 13px);
+    color: black;
+    margin: 0;
+    width: auto;
+}
+
+.footer-bottom a {
+    display: inline;
+    color: black;
+    margin-left: 12px;
+    font-size: inherit;
+    /* TEXT STYLE: Updated to Montserrat */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-bottom a:hover {
+    color: #b30018;
+}
+
+.footerItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerLogo {
+    width: 180px;
+}
+
+.footerLogoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-self: center !important;
+}
+
+@media (min-width: 768px) {
+    .footer-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}

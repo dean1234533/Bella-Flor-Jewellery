@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   padding-bottom: 3rem;
+  font-family: 'Montserrat', sans-serif; /* Added text style */
 }
 
 .contact-card {
@@ -22,14 +23,12 @@
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
- 
 }
 
 /* Left — image panel */
 .contact-image-panel {
   position: relative;
   min-height: 400px;
- 
 }
 
 .contact-image-panel img {
@@ -47,17 +46,18 @@
   display: flex;
   align-items: flex-end;
   padding: 2.5rem;
-  
 }
 
 .contact-image-text h3 {
+  font-family: 'Libre Baskerville', serif; /* Added text style */
   font-size: 1.8rem;
   color: #fff;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
 .contact-image-text p {
+  font-family: 'Montserrat', sans-serif; /* Added text style */
   color: #d1d5db;
   font-size: 0.95rem;
   line-height: 1.6;
@@ -70,13 +70,15 @@
 }
 
 .contact-form-panel h2 {
+  font-family: 'Libre Baskerville', serif; /* Added text style */
   font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   color: #111827;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
 .contact-form-panel > p {
+  font-family: 'Montserrat', sans-serif; /* Added text style */
   color: #6b7280;
   margin-bottom: 2rem;
   font-size: 0.95rem;
@@ -88,11 +90,14 @@
 }
 
 .form-field label {
+  font-family: 'Montserrat', sans-serif; /* Added text style */
+  font-weight: 600; /* Added text style */
   display: block;
   color: #374151;
   font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em; /* Adjusted letter spacing */
   margin-bottom: 0.5rem;
+  text-transform: uppercase; /* Match luxury style */
 }
 
 .input-wrap {
@@ -122,7 +127,7 @@
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 0.88rem;
-  font-family: 'Jost', sans-serif;
+  font-family: 'Montserrat', sans-serif; /* Swapped Jost for Montserrat */
   color: #111827;
   background: #fff;
   transition: border-color 0.25s, box-shadow 0.25s;
@@ -149,6 +154,7 @@
 }
 
 .form-error {
+  font-family: 'Montserrat', sans-serif; /* Added text style */
   display: none;
   color: #ef4444;
   font-size: 0.75rem;
@@ -174,14 +180,17 @@
   border: none;
   border-radius: 10px;
   font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  font-family: 'Jost', sans-serif;
+  letter-spacing: 0.1em; /* Adjusted letter spacing */
+  font-family: 'Montserrat', sans-serif; /* Swapped Jost for Montserrat */
+  font-weight: 600; /* Added weight */
+  text-transform: uppercase; /* Match luxury style */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
   transition: background 0.3s;
   margin-top: 0.5rem;
+  cursor: pointer;
 }
 
 .submit-btn:hover {
@@ -205,6 +214,7 @@
   border-radius: 10px;
   padding: 2rem;
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .success-msg.visible {
@@ -225,6 +235,7 @@
 }
 
 .success-msg h3 {
+  font-family: 'Libre Baskerville', serif;
   font-size: 1.3rem;
   color: #111827;
   margin-bottom: 0.5rem;
@@ -237,6 +248,7 @@
 
 /* Contact info footer */
 .contact-info-footer {
+  font-family: 'Montserrat', sans-serif; /* Added text style */
   margin-top: 1.8rem;
   padding-top: 1.5rem;
   border-top: 1px solid #f3f4f6;
@@ -248,7 +260,7 @@
 .contact-info-footer a {
   color: #1f2937;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 footer {
@@ -278,13 +290,14 @@ footer {
     max-width: 1100px;
     margin: 0 auto;
     padding-bottom: 32px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .footer-heading {
+    font-family: 'Montserrat', sans-serif; /* Added text style */
     font-size: clamp(14px, 2.5vw, 16px);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em; /* Adjusted letter spacing */
     text-transform: uppercase;
     margin-bottom: 8px;
 }
@@ -305,6 +318,7 @@ footer a {
     padding: 4px 0;
     font-size: clamp(13px, 2vw, 15px);
     transition: color 0.2s ease;
+    font-family: 'Montserrat', sans-serif; /* Added text style */
 }
 
 footer a:hover {
@@ -320,10 +334,11 @@ footer a:hover {
     max-width: 1100px;
     margin: 20px auto 0;
     text-align: center;
-     border-top:1px solid black ;
+    border-top: 1px solid black ;
 }
 
 .footer-bottom p {
+    font-family: 'Montserrat', sans-serif; /* Added text style */
     font-size: clamp(10px, 2vw, 13px);
     color: black;
     margin: 0;
@@ -346,27 +361,18 @@ footer a:hover {
     flex-direction: column;
 }
 
-
 .footerLogo{
-
   width: 180px;
- 
-
 }
 
-.footerLogoContainer{display: flex;flex-direction: column;justify-self: center;}
-
-.footerLogoContainer p{text-align: center;}
+.footerLogoContainer{display: flex;flex-direction: column;justify-self: center !important;}
 
 @media (min-width: 768px) {
-
-
  .footer-columns {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-        
-    }
+}
 
 @media (max-width: 768px) {
   .contact-card {
@@ -376,24 +382,16 @@ footer a:hover {
 
   .contact-image-panel {
     min-height: 220px;
+    max-height: 400px;
   }
 
   .contact-form-panel {
     padding: 2rem 1.5rem;
   }
-  
-
-.contact-image-panel {
-  
- max-height: 400px;
- 
-}
-
 }
 
 @media (max-width: 480px) {
   .contact-form-panel {
     padding: 1.5rem 1.2rem;
   }
-  
 }
