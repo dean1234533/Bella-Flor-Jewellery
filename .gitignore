@@ -1,0 +1,7 @@
+config.js
+node_modules
+.env
+.env*.local
+.dev.vars
+.wrangler
+.DS_Store
