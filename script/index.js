@@ -93,17 +93,47 @@
       }
 
       // Main animation loop
+      let rafId = null;
+      let running = false;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       function loop(ts) {
         const t = ts * 0.05;
         drawGeo(t);
         drawParticles(t);
         drawShimmer(t);
-        requestAnimationFrame(loop);
+        rafId = requestAnimationFrame(loop);
+      }
+
+      function startLoop() {
+        if (running || reduceMotion) return;
+        running = true;
+        rafId = requestAnimationFrame(loop);
+      }
+
+      function stopLoop() {
+        running = false;
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        rafId = null;
       }
 
       resizeCanvases();
-      requestAnimationFrame(loop);
       window.addEventListener('resize', resizeCanvases);
 
-     
+      if (reduceMotion) {
+        // Draw a single static frame instead of animating.
+        drawGeo(0);
+        drawParticles(0);
+        drawShimmer(0);
+      } else if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) startLoop();
+            else stopLoop();
+          });
+        }, { threshold: 0 });
+        observer.observe(hero);
+      } else {
+        startLoop();
+      }
     })();

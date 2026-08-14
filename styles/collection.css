@@ -162,7 +162,7 @@
   position: absolute;
   top: 12px;
   left: 0;
-  background: var(--brown);
+  background: #7a5c38;
   color: #fff;
   font-size: 0.6rem;
   font-weight: 600;
@@ -235,7 +235,7 @@
 
 .card-material {
   font-size: 0.65rem;
-  color: #9C917E;
+  color: #6b6353;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 0.6rem;
@@ -270,7 +270,7 @@
 .card-view-btn {
   padding: 8px 16px;
   background: var(--text-dark);
-  color:black;
+  color: white;
   border: 1px solid rgba(119, 115, 115, 0.337);
   border-radius: 4px ; /* Slightly sharper */
   font-size: 0.72rem;
@@ -289,26 +289,39 @@
 /* Dots */
 .carousel-dots {
   display: flex;
-  gap: 8px;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   padding-bottom: 0.8rem;
 }
 
 .carousel-dot {
-  height: 2px;
-  background: var(--border);
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
   padding: 0;
-  transition: all 0.3s;
-  width: 8px;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-dot.active {
+.carousel-dot::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: all 0.3s;
+}
+
+.carousel-dot.active::after {
   background: var(--brown);
-  width: 24px;
+  width: 20px;
 }
 
 /* Counter */

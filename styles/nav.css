@@ -1,3 +1,15 @@
+:root {
+  --dark: #0a0a0a;
+  --gold: #d4af37;
+  --gold-light: #f4e4c1;
+  --gold-mid: #c9a961;
+  --brown: #9c7a4a;
+  --cream: #fdf8f0;
+  --border: rgba(0,0,0,0.08);
+  --text-dark: #1a1a1a;
+  --text-muted: #666;
+}
+
 * {
   margin: 0;
   padding: 0;

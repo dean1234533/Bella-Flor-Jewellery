@@ -9,6 +9,7 @@
   <meta name="keywords" content="Bella Flor Jewellery reviews, handmade bracelet reviews, cord bracelet UK, woven bangle reviews, braided bracelet, chunky bracelet UK, handmade jewellery reviews, affordable bracelet UK, toggle clasp bracelet, lobster clasp bracelet" />
   <meta name="author" content="Bella Flor Jewellery" />
   <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.bellaflorjewellery.co.uk/reviews" />
 
   <meta property="og:title" content="Customer Reviews | Bella Flor Jewellery" />
   <meta property="og:description" content="See what our customers say about our handmade cord bracelets and woven bangles. Rated 5 stars across the board." />
@@ -20,6 +21,11 @@
   <meta name="twitter:title" content="Customer Reviews | Bella Flor Jewellery" />
   <meta name="twitter:description" content="Real reviews from real customers. Shop our handmade cord bracelets and woven bangles today." />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/IMG_9306-removebg-preview.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/images/IMG_9306-removebg-preview.png" />
   <link rel="stylesheet" href="./styles/nav.css" />
   <link rel="stylesheet" href="./styles/reviews.css" />
 </head>
@@ -28,16 +34,18 @@
   <header>
     <nav class="navBar">
    <div class="logoContainer">
-    <a class="nav-logo" href="/"><img src="./images/IMG_9306-removebg-preview.png" alt="Bella Flor Jewellery Logo"></a>
+    <a class="nav-logo" href="/"><picture><source srcset="./images/IMG_9306-removebg-preview.webp" type="image/webp" /><img src="./images/IMG_9306-removebg-preview.png" width="180" height="98" alt="Bella Flor Jewellery logo" /></picture></a>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" id="mobile-nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/collection">Collection</a></li>
       <li><a href="/about">About</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/tools">Tools</a></li>
       <li><a href="/reviews">Reviews</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
-   <button class="btn">
+   <button class="btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-links">
     <span class="line1"></span>
     <span class="line2"></span>
     <span class="line3"></span>
@@ -46,17 +54,22 @@
 
   <div class="nav-desktop-container">
      <div class="logoContainer">
-    <a class="nav-logo" href="/"><img src="./images/IMG_9306-removebg-preview.png" alt="Bella Flor Jewellery Logo"></a>
+    <a class="nav-logo" href="/"><picture><source srcset="./images/IMG_9306-removebg-preview.webp" type="image/webp" /><img src="./images/IMG_9306-removebg-preview.png" width="220" height="120" alt="Bella Flor Jewellery logo" /></picture></a>
     </div>
   <div class="nav-desktop" id="desktop-nav">
    <a href="/">Home</a>
   <a href="/collection">Collection</a>
   <a href="/about">Our Story</a>
+  <a href="/blog">Blog</a>
+  <a href="/tools">Tools</a>
   <a href="/reviews">Testimonials</a>
   <a href="/contact">Contact</a>
   </div>
 </div>
   </header>
+
+  <main>
+
 
   <div class="reviews-page">
     <div class="reviews-inner">
@@ -163,9 +176,12 @@
       </div></div>
   </div>
 
- <footer>
+ 
+  </main>
+
+<footer>
     <div class="footerLogoContainer">
-        <img class="footerLogo" src="./images/IMG_9305-removebg-preview.png" alt="Bella Flor Jewellery Logo">
+        <picture><source srcset="./images/IMG_9305-removebg-preview.webp" type="image/webp" /><img class="footerLogo" src="./images/IMG_9305-removebg-preview.png" width="180" height="98" loading="lazy" alt="Bella Flor Jewellery Logo"></picture>
     </div>
 
     <div class="footer-columns">
@@ -174,19 +190,21 @@
             <a href="/">Home</a>
             <a href="/collection">Collection</a>
             <a href="/about">Our Story</a>
+            <a href="/blog">Blog</a>
+            <a href="/tools">Tools</a>
             <a href="/reviews">Testimonials</a>
             <a href="/contact">Contact</a>
         </div>
         <div class="footer-col">
             <p class="footer-heading">Connect</p>
             <a href="https://wa.me/447889231107" target="_blank" rel="noopener">
-                <img src="./images/IMG_9286.JPG" width="24" height="24" alt="WhatsApp"> WhatsApp Us
+                <picture><source srcset="./images/IMG_9286.webp" type="image/webp" /><img src="./images/IMG_9286.JPG" width="24" height="24" loading="lazy" alt="WhatsApp"></picture> WhatsApp Us
             </a>
             <a href="mailto:bellaflorjewellery@outlook.com" target="_blank" rel="noopener">
-                <img src="./images/IMG_9292.JPG" width="24" height="24" alt="Email"> Email Support
+                <picture><source srcset="./images/IMG_9292.webp" type="image/webp" /><img src="./images/IMG_9292.JPG" width="24" height="24" loading="lazy" alt="Email"></picture> Email Support
             </a>
             <a href="https://www.instagram.com/bellaflorjewellery" target="_blank" rel="noopener">
-                <img src="./images/IMG_9291.JPG" width="24" height="24" alt="Instagram"> Instagram
+                <picture><source srcset="./images/IMG_9291.webp" type="image/webp" /><img src="./images/IMG_9291.JPG" width="24" height="24" loading="lazy" alt="Instagram"></picture> Instagram
             </a>
         </div>
     </div>

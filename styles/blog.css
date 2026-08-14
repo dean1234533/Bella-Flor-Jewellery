@@ -1,0 +1,338 @@
+/* =============================================
+   BLOG — blog.css (index + post pages)
+   ============================================= */
+
+.blog-page {
+  padding-top: 70px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Banner (shared with about-banner styling) */
+.blog-banner {
+  background: var(--dark);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.blog-banner h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  margin-bottom: 0.8rem;
+  font-family: 'Libre Baskerville', serif;
+  text-transform: uppercase;
+}
+
+.blog-banner p {
+  font-size: 0.95rem;
+  color: var(--gold-mid);
+  letter-spacing: 0.05em;
+  max-width: 520px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Post grid */
+.blog-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 4.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+.blog-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-card-body {
+  padding: 1.4rem 1.3rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.blog-card-date {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7a5c38;
+  font-weight: 600;
+}
+
+.blog-card-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  line-height: 1.35;
+}
+
+.blog-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.blog-card-readmore {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+/* Individual post */
+.blog-post-header {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 1.5rem;
+  text-align: center;
+}
+
+.blog-post-header .blog-card-date {
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.blog-post-header h1 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--text-dark);
+  line-height: 1.3;
+  margin-bottom: 0.6rem;
+}
+
+.blog-post-header .blog-post-dek {
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.blog-post-hero {
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  padding: 0 2rem;
+}
+
+.blog-post-hero picture,
+.blog-post-hero img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  object-fit: cover;
+  max-height: 460px;
+}
+
+.blog-post-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 3rem;
+}
+
+.blog-post-content h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  color: var(--text-dark);
+  letter-spacing: 0.02em;
+  margin: 2.2rem 0 1rem;
+}
+
+.blog-post-content p {
+  color: #555;
+  line-height: 1.9;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 1.1rem;
+}
+
+.blog-post-content ul {
+  margin: 0 0 1.4rem 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.blog-post-content li {
+  margin-bottom: 0.4rem;
+}
+
+.blog-post-content a {
+  color: var(--brown);
+  font-weight: 500;
+}
+
+.blog-post-cta {
+  text-align: center;
+  padding: 2.5rem 2rem 0;
+  border-top: 0.5px solid var(--border);
+  margin: 2rem auto 0;
+  max-width: 720px;
+}
+
+.blog-post-cta p {
+  color: #666;
+  margin-bottom: 1.4rem;
+  font-size: 1.05rem;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+}
+
+.blog-post-cta a {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.blog-related {
+  max-width: 1080px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem 4rem;
+}
+
+.blog-related h3 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ... Footer styles (shared brand footer) ... */
+footer {
+    background-color: #f9f9f7;
+    color: black;
+    padding: 40px 20px 20px 20px;
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.footerLogoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.footerLogo {
+  width: 180px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #66666639;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+footer a:hover {
+  color: #a55b2d;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-bottom a {
+  display: inline;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

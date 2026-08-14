@@ -48,7 +48,7 @@
   padding: 2.5rem;
 }
 
-.contact-image-text h3 {
+.contact-image-text .contact-image-title {
   font-family: 'Libre Baskerville', serif; /* Added text style */
   font-size: 1.8rem;
   color: #fff;
@@ -69,7 +69,7 @@
   overflow-y: auto;
 }
 
-.contact-form-panel h2 {
+.contact-form-panel h1 {
   font-family: 'Libre Baskerville', serif; /* Added text style */
   font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   color: #111827;
@@ -234,7 +234,7 @@
   color: #fff;
 }
 
-.success-msg h3 {
+.success-msg .success-title {
   font-family: 'Libre Baskerville', serif;
   font-size: 1.3rem;
   color: #111827;
