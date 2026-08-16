@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/nav.css" />
-  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/index.css?v=3" />
 </head>
 <body>
 
@@ -125,73 +125,87 @@
     <a href="/about" class="text-link">Discover our story <span aria-hidden="true">↗</span></a>
   </section>
 
-  <section class="collection-feature reveal-section" aria-labelledby="collection-heading">
-    <div class="collection-copy">
-      <p class="eyebrow">Signature collection</p>
-      <h2 id="collection-heading">Modern texture,<br>timeless detail.</h2>
-      <p>From slender everyday cords to sculptural woven bangles, explore pieces designed to layer, gift and make your own.</p>
-      <a href="/collection" class="btn-dark-cta">Explore the collection</a>
-    </div>
-    <a href="/collection" class="collection-image" aria-label="Shop the signature collection">
-      <picture>
-        <source srcset="./images/IMG_9417.webp" type="image/webp">
-        <img src="./images/IMG_9417.JPG" width="1000" height="1334" loading="lazy" alt="Bella Flor handmade bracelets arranged together">
-      </picture>
-      <span>View collection <b aria-hidden="true">→</b></span>
-    </a>
-  </section>
-
-  <section class="shop-edit home-section reveal-section">
-    <div class="section-heading-row">
+  <section class="home-collection-new home-section reveal-section" aria-labelledby="collection-heading">
+    <div class="home-title-row">
       <div>
-        <p class="eyebrow">The edit</p>
-        <h2>Find your piece</h2>
+        <p class="eyebrow">Shop the collection</p>
+        <h2 id="collection-heading">Pieces with<br>personality.</h2>
       </div>
-      <a href="/collection" class="text-link desktop-link">Shop all designs <span aria-hidden="true">↗</span></a>
+      <div class="home-title-aside">
+        <p>Designed to be worn your way — individually, layered together, or created in colours entirely your own.</p>
+        <a href="/collection" class="text-link">View every piece <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
-    <div class="product-editorial-grid">
-      <a class="editorial-card editorial-card-tall" href="/collection">
-        <picture><source srcset="./images/IMG_9288.webp" type="image/webp"><img src="./images/IMG_9288.JPG" width="800" height="1067" loading="lazy" alt="Slim handmade cord bracelet"></picture>
-        <span class="card-number">01</span>
-        <div><h3>Slim cords</h3><p>Everyday simplicity · From £12</p></div>
+    <div class="home-product-mosaic">
+      <a class="home-product-card home-product-card-main" href="/collection">
+        <picture><source srcset="./images/IMG_9288.webp" type="image/webp"><img src="./images/IMG_9288.JPG" width="900" height="1200" loading="lazy" alt="Violet chunky braid bracelet handmade by Bella Flor"></picture>
+        <span class="home-card-index">01</span>
+        <div class="home-card-caption"><h3>Chunky braids</h3><p>Bold texture · From £16</p></div>
       </a>
-      <a class="editorial-card" href="/collection">
-        <picture><source srcset="./images/IMG_9257.webp" type="image/webp"><img src="./images/IMG_9257.JPG" width="800" height="1067" loading="lazy" alt="Two-tone braided bracelet"></picture>
-        <span class="card-number">02</span>
-        <div><h3>Braided colour</h3><p>Playful combinations · From £14</p></div>
+      <a class="home-product-card" href="/collection">
+        <picture><source srcset="./images/IMG_9257.webp" type="image/webp"><img src="./images/IMG_9257.JPG" width="800" height="1067" loading="lazy" alt="Colourful two-tone Bella Flor cord bracelet"></picture>
+        <span class="home-card-index">02</span>
+        <div class="home-card-caption"><h3>Two-tone cords</h3><p>Colour, considered · From £14</p></div>
       </a>
-      <a class="editorial-card" href="/collection">
-        <picture><source srcset="./images/IMG_9262.webp" type="image/webp"><img src="./images/IMG_9262.JPG" width="800" height="1067" loading="lazy" alt="Chunky handwoven bangle"></picture>
-        <span class="card-number">03</span>
-        <div><h3>Woven bangles</h3><p>Statement texture · From £16</p></div>
+      <a class="home-product-card" href="/collection">
+        <picture><source srcset="./images/IMG_9262.webp" type="image/webp"><img src="./images/IMG_9262.JPG" width="800" height="1067" loading="lazy" alt="Monochrome woven Bella Flor bangle"></picture>
+        <span class="home-card-index">03</span>
+        <div class="home-card-caption"><h3>Woven bangles</h3><p>Quiet statement · From £18</p></div>
       </a>
-    </div>
-    <a href="/collection" class="text-link mobile-link">Shop all designs <span aria-hidden="true">↗</span></a>
-  </section>
-
-  <section class="craft-story reveal-section">
-    <div class="craft-image">
-      <picture><source srcset="./images/IMG_9284.webp" type="image/webp"><img src="./images/IMG_9284.JPG" width="1000" height="1334" loading="lazy" alt="Close-up of Bella Flor handmade jewellery"></picture>
-    </div>
-    <div class="craft-copy">
-      <p class="eyebrow">A human touch</p>
-      <h2>Never mass-produced.</h2>
-      <p>Each piece begins as loose cord, measured, shaped and knotted one loop at a time. The result is considered, tactile and unmistakably individual.</p>
-      <dl>
-        <div><dt>01</dt><dd>Made by hand in small quantities</dd></div>
-        <div><dt>02</dt><dd>Thoughtful materials and finishing</dd></div>
-        <div><dt>03</dt><dd>Custom colours, details and sizing</dd></div>
-      </dl>
-      <a href="/about" class="text-link">Step inside our process <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 
-  <section class="testimonial-feature reveal-section">
-    <p class="eyebrow">Client notes</p>
-    <div class="home-rating-stars" aria-label="5 out of 5 stars">★★★★★</div>
-    <blockquote>“Beautifully made and even more special in person. You can see the care in every detail.”</blockquote>
-    <p class="testimonial-credit">Bella Flor customer</p>
-    <a href="/reviews" class="text-link">Read all testimonials <span aria-hidden="true">↗</span></a>
+  <section class="home-atelier-new reveal-section">
+    <div class="home-atelier-copy">
+      <p class="eyebrow">Inside the atelier</p>
+      <h2>Hands, cord<br>and patience.</h2>
+      <p>Every bracelet starts with a considered palette and a length of cord. It is measured, shaped and knotted entirely by hand — giving each finished piece its own subtle character.</p>
+      <ol>
+        <li><span>01</span><div><strong>Choose</strong><small>Colour, texture and finish</small></div></li>
+        <li><span>02</span><div><strong>Make</strong><small>Hand-knotted in small quantities</small></div></li>
+        <li><span>03</span><div><strong>Wear</strong><small>Made to layer and keep</small></div></li>
+      </ol>
+      <a href="/about" class="text-link">Meet the maker <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="home-proof-new reveal-section">
+    <div class="home-proof-stat"><strong>5.0</strong><span>Average customer rating</span></div>
+    <div class="home-proof-quote">
+      <div class="home-rating-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <blockquote>“It looks so much more expensive than it is — I’ve already had three people ask where it’s from.”</blockquote>
+      <p>Sarah M. · Verified customer</p>
+      <a href="/reviews" class="text-link">Read every review <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="home-tools-new home-section reveal-section">
+    <div class="home-title-row">
+      <div><p class="eyebrow">A perfect fit</p><h2>Useful by<br>design.</h2></div>
+      <div class="home-title-aside"><p>Simple tools and straightforward guidance to help you choose confidently before you order.</p></div>
+    </div>
+    <div class="home-tool-grid">
+      <a href="/bracelet-size-guide"><span>01</span><div><h3>Bracelet &amp; wrist size guide</h3><p>Measure once, choose with confidence.</p></div><b aria-hidden="true">↗</b></a>
+      <a href="/ring-size-guide"><span>02</span><div><h3>Ring size converter</h3><p>Convert UK, US and EU sizing in seconds.</p></div><b aria-hidden="true">↗</b></a>
+    </div>
+  </section>
+
+  <section class="home-journal-new reveal-section">
+    <div class="home-journal-heading">
+      <p class="eyebrow">From the journal</p>
+      <h2>Stories, care<br>&amp; considered advice.</h2>
+      <a href="/blog" class="text-link">Visit the journal <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="home-journal-grid">
+      <a href="/blog-cord-bracelet-care-guide">
+        <picture><source srcset="./images/IMG_9415.webp" type="image/webp"><img src="./images/IMG_9415.JPG" width="900" height="1200" loading="lazy" alt="Handmade bracelet being crafted"></picture>
+        <span>Care guide · 5 min read</span><h3>How to care for your handmade cord bracelet</h3>
+      </a>
+      <a href="/blog-how-to-measure-your-wrist">
+        <picture><source srcset="./images/IMG_9284.webp" type="image/webp"><img src="./images/IMG_9284.JPG" width="900" height="1200" loading="lazy" alt="Close view of Bella Flor bracelet details"></picture>
+        <span>Sizing · 4 min read</span><h3>How to measure your wrist for the perfect fit</h3>
+      </a>
+    </div>
   </section>
 
   <section class="home-section faq-section reveal-section" id="faq">
@@ -261,7 +275,7 @@
 
 <footer>
     <div class="footerLogoContainer">
-        <picture><source srcset="./images/IMG_9305-removebg-preview.webp" type="image/webp" /><img class="footerLogo" src="./images/IMG_9305-removebg-preview.png" width="180" height="98" loading="lazy" alt="Bella Flor Jewellery Logo"></picture>
+        <picture><source srcset="./images/IMG_9305-removebg-preview.webp" type="image/webp" /><img class="footerLogo" src="./images/IMG_9305-removebg-preview.png" width="180" height="99" loading="lazy" alt="Bella Flor Jewellery Logo"></picture>
     </div>
 
     <div class="footer-columns">
