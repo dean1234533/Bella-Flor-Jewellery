@@ -282,6 +282,20 @@ footer a {
   text-decoration: underline;
 }
 
+/* Expand small inline prose-link tap targets to 24px+ without shifting text flow */
+.home-faq-item p a,
+.blog-post-content a,
+.about-section p a,
+.about-cta p a,
+.content-container p a,
+.content-container li a,
+.cart-empty a,
+#cookie-consent-banner a {
+  display: inline-block;
+  padding: 4px 2px;
+  margin: -4px -2px;
+}
+
 #cookie-consent-banner button {
   background: var(--gold);
   color: #0a0a0a;

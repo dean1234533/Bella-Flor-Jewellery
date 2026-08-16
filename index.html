@@ -112,8 +112,8 @@
   <section class="service-strip" aria-label="Our promises">
     <div class="service-strip-inner">
       <span><i aria-hidden="true">01</i> Handmade in the UK</span>
-      <span><i aria-hidden="true">02</i> Complimentary UK delivery</span>
-      <span><i aria-hidden="true">03</i> Bespoke designs available</span>
+      <span><i aria-hidden="true">02</i> Free UK delivery</span>
+      <span><i aria-hidden="true">03</i> 5-star rated</span>
       <span><i aria-hidden="true">04</i> Secure checkout</span>
     </div>
   </section>
@@ -133,7 +133,7 @@
       </div>
       <div class="home-title-aside">
         <p>Designed to be worn your way — individually, layered together, or created in colours entirely your own.</p>
-        <a href="/collection" class="text-link">View every piece <span aria-hidden="true">↗</span></a>
+        <a href="/collection" class="text-link">Shop now <span aria-hidden="true">↗</span></a>
       </div>
     </div>
     <div class="home-product-mosaic">
@@ -210,8 +210,8 @@
 
   <section class="home-section faq-section reveal-section" id="faq">
     <div class="faq-heading">
-      <p class="eyebrow">Good to know</p>
-      <h2>Questions,<br>answered.</h2>
+      <p class="eyebrow">FAQ</p>
+      <h2>Frequently asked<br>questions.</h2>
       <p>Need something more specific? We’re always happy to help.</p>
       <a href="/contact" class="text-link">Talk to us <span aria-hidden="true">↗</span></a>
     </div>
@@ -261,6 +261,25 @@
         <div><strong>Chat on WhatsApp</strong><small>For a quick question or idea</small></div>
         <b aria-hidden="true">↗</b>
       </a>
+      <form id="home-enquiry-form" class="home-mini-form" novalidate>
+        <input type="hidden" id="home-currentTime" name="time">
+        <input type="hidden" id="home-currentDate" name="date">
+        <input type="hidden" name="phone_number" value="">
+        <div>
+          <label for="home-name">Name</label>
+          <input type="text" id="home-name" name="from_name" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="home-email">Email</label>
+          <input type="email" id="home-email" name="reply_to" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div>
+          <label for="home-message">Message</label>
+          <textarea id="home-message" name="message" rows="2" placeholder="Tell us what you're looking for..." required></textarea>
+        </div>
+        <button type="submit">Send enquiry <span aria-hidden="true">→</span></button>
+        <p class="mini-form-success" id="home-mini-success">Thanks! We'll be in touch within 24 hours.</p>
+      </form>
     </div>
   </section>
 
@@ -402,5 +421,35 @@
   <script src="./script/nav.js"></script>
   <script type="module" src="./script/cart.js"></script>
   <script src="./script/index.js"></script>
+  <script src="./script/config.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init({ publicKey: CONFIG.emailjsKey });
+    })();
+  </script>
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      const date = new Date();
+      document.getElementById('home-currentDate').value = date.toISOString().slice(0, 10);
+      document.getElementById('home-currentTime').value = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+
+      const form = document.getElementById('home-enquiry-form');
+      const success = document.getElementById('home-mini-success');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.checkValidity()) {
+          emailjs.sendForm('service_dqha001', 'template_4aa41hu', this)
+            .then(() => {
+              form.reset();
+              success.classList.add('visible');
+            }, (error) => {
+              alert('Oops! Something went wrong: ' + JSON.stringify(error));
+            });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
