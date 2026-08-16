@@ -26,6 +26,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .about-section p { color:var(--bf-soft)!important; font-size:.95rem!important; font-weight:400!important; line-height:2!important; }
 .about-image-wrap,.about-image-wrap2 { margin:2.5rem 0 0!important; overflow:hidden; border-radius:0!important; box-shadow:none!important; }
 .about-image-wrap img,.about-image-wrap2 img { display:block; width:100%; max-height:640px; object-fit:cover; transition:transform .8s ease; }
+.about-image-wrap img { height:auto!important; max-height:none; object-fit:contain; }
 .about-image-wrap:hover img,.about-image-wrap2:hover img { transform:scale(1.025); }
 .about-offer-list { margin-top:2.5rem!important; border-top:1px solid var(--bf-line); }
 .about-offer-list li { display:grid!important; grid-template-columns:32px 1fr; padding:1.1rem 0!important; border-bottom:1px solid var(--bf-line); color:var(--bf-soft); line-height:1.65; }

@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles/nav.css" />
-  <link rel="stylesheet" href="./styles/index.css?v=3" />
+  <link rel="stylesheet" href="./styles/index.css?v=4" />
 </head>
 <body>
 
@@ -222,7 +222,7 @@
       </details>
       <details class="home-faq-item">
         <summary>Can I order a custom or bespoke design?</summary>
-        <p>Yes, custom colour combinations and metallic accents are available. Get in touch via the form below, WhatsApp, or our <a href="/contact">contact page</a> to discuss your design.</p>
+        <p>Yes, custom colour combinations and metallic accents are available. Get in touch via WhatsApp or our <a href="/contact">contact page</a> to discuss your design.</p>
       </details>
       <details class="home-faq-item">
         <summary>How do I know what size to order?</summary>
@@ -250,25 +250,18 @@
         <a href="mailto:bellaflorjewellery@outlook.com">Email us</a>
       </div>
     </div>
-    <form id="home-enquiry-form" class="home-mini-form" novalidate>
-      <input type="hidden" id="home-currentTime" name="time">
-      <input type="hidden" id="home-currentDate" name="date">
-      <input type="hidden" name="phone_number" value="">
-      <div>
-        <label for="home-name">Name</label>
-        <input type="text" id="home-name" name="from_name" placeholder="Your name" autocomplete="name" required>
-      </div>
-      <div>
-        <label for="home-email">Email</label>
-        <input type="email" id="home-email" name="reply_to" placeholder="you@example.com" autocomplete="email" required>
-      </div>
-      <div>
-        <label for="home-message">Message</label>
-        <textarea id="home-message" name="message" rows="3" placeholder="Tell us what you're looking for..." required></textarea>
-      </div>
-      <button type="submit">Send enquiry <span aria-hidden="true">→</span></button>
-      <p class="mini-form-success" id="home-mini-success">Thanks! We'll be in touch within 24 hours.</p>
-    </form>
+    <div class="home-contact-actions">
+      <a href="/contact">
+        <span>01</span>
+        <div><strong>Send an enquiry</strong><small>Use the dedicated contact form</small></div>
+        <b aria-hidden="true">↗</b>
+      </a>
+      <a href="https://wa.me/447889231107" target="_blank" rel="noopener">
+        <span>02</span>
+        <div><strong>Chat on WhatsApp</strong><small>For a quick question or idea</small></div>
+        <b aria-hidden="true">↗</b>
+      </a>
+    </div>
   </section>
 
   </main>
@@ -409,35 +402,5 @@
   <script src="./script/nav.js"></script>
   <script type="module" src="./script/cart.js"></script>
   <script src="./script/index.js"></script>
-  <script src="./script/config.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      emailjs.init({ publicKey: CONFIG.emailjsKey });
-    })();
-  </script>
-  <script type="text/javascript">
-    window.addEventListener('load', function () {
-      const date = new Date();
-      document.getElementById('home-currentDate').value = date.toISOString().slice(0, 10);
-      document.getElementById('home-currentTime').value = date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
-
-      const form = document.getElementById('home-enquiry-form');
-      const success = document.getElementById('home-mini-success');
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (this.checkValidity()) {
-          emailjs.sendForm('service_dqha001', 'template_4aa41hu', this)
-            .then(() => {
-              form.reset();
-              success.classList.add('visible');
-            }, (error) => {
-              alert('Oops! Something went wrong: ' + JSON.stringify(error));
-            });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
