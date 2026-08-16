@@ -1,19 +1,37 @@
-const nav = document.querySelector(".navBar")
-const btn = document.querySelector(".btn")
+const nav = document.querySelector(".navBar");
+const btn = document.querySelector(".btn");
+const desktopNav = document.querySelector(".nav-desktop-container");
 
-
-function toggleNav(){
-
-nav.classList.toggle("Active")
-btn.setAttribute("aria-expanded", nav.classList.contains("Active") ? "true" : "false")
-
+function closeNav() {
+  if (!nav || !btn) return;
+  nav.classList.remove("Active");
+  btn.setAttribute("aria-expanded", "false");
 }
 
-btn.addEventListener("click", () =>{
+function toggleNav() {
+  if (!nav || !btn) return;
+  nav.classList.toggle("Active");
+  btn.setAttribute("aria-expanded", nav.classList.contains("Active") ? "true" : "false");
+}
 
-toggleNav()
+if (btn) btn.addEventListener("click", toggleNav);
 
-} );
+if (nav) {
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeNav));
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeNav();
+});
+
+function updateStickyNav() {
+  const scrolled = window.scrollY > 32;
+  if (nav) nav.classList.toggle("is-scrolled", scrolled);
+  if (desktopNav) desktopNav.classList.toggle("is-scrolled", scrolled);
+}
+
+updateStickyNav();
+window.addEventListener("scroll", updateStickyNav, { passive: true });
 
 // --- Cookie consent banner (site-wide, injected so every page picks it up) ---
 (function cookieConsent() {
@@ -34,4 +52,3 @@ toggleNav()
     banner.remove();
   });
 })();
-
