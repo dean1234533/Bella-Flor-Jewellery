@@ -420,16 +420,45 @@ footer a:hover {
 }
 
 @media (max-width: 767px) {
+  .collection-page {
+    padding-top: 84px;
+  }
+
+  .carousel-wrapper {
+    position: relative;
+    padding: 1rem;
+  }
+
+  .cards-track,
+  .bracelet-card.main {
+    width: 100%;
+  }
+
+  .card-image {
+    aspect-ratio: 4 / 5;
+  }
+
   .bracelet-card:not(.main) {
     display: none;
   }
 
   .carousel-arrow {
-    width: 34px;
-    height: 34px;
+    position: absolute;
+    top: min(48vw, 205px);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
     font-size: 1rem;
-    margin-top: 100px;
+    margin-top: 0;
+    border-color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+    color: var(--text-dark);
+    transform: translateY(-50%);
   }
+
+  #prev-btn { left: 1.5rem; }
+  #next-btn { right: 1.5rem; }
 
   .card-initials {
     width: 44px;
@@ -439,9 +468,12 @@ footer a:hover {
 
 @media (max-width: 480px) {
   .carousel-wrapper {
-    gap: 0.5rem;
-    padding: 1rem 0.5rem;
+    gap: 0;
+    padding: 1rem 0.75rem;
   }
+
+  #prev-btn { left: 1.25rem; }
+  #next-btn { right: 1.25rem; }
 }
 
 
@@ -518,25 +550,6 @@ footer a:hover {
   }
 }
 
-  .carousel-arrow {
-    width: 34px;
-    height: 34px;
-    font-size: 1rem;
-    margin-top: 100px;
-  }
-
-  .card-initials {
-    width: 44px;
-    height: 44px;
-  }
-
-
-@media (max-width: 480px) {
-  .carousel-wrapper {
-    gap: 0.5rem;
-    padding: 1rem 0.5rem;
-  }
-}
 /* ── CHECKOUT RETURN BANNER ───────────────────────────────────── */
 .checkout-banner {
   position: fixed;
