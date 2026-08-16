@@ -42,7 +42,9 @@ import { addToCart, clearCart } from "./cart.js";
     const card   = document.createElement("div");
     card.className = "bracelet-card" + (isMain ? " main" : "");
     card.innerHTML = `
-      <div class="card-image" style="background:${piece.color}">
+      <div class="card-image" style="background:${piece.color}"${piece.image
+        ? ` data-expandable tabindex="0" role="button" aria-label="Expand image of ${piece.name}"`
+        : ""}>
         ${piece.image
           ? `<img src="${piece.image}" class="card-img-content" alt="${piece.name}" loading="lazy">`
           : `<div class="card-initials">${initials(piece.name)}</div>`}
@@ -59,6 +61,51 @@ import { addToCart, clearCart } from "./cart.js";
         </div>
       </div>`;
     return card;
+  }
+
+  function createImageLightbox() {
+    const lightbox = document.createElement("div");
+    lightbox.className = "image-lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Expanded product image");
+    lightbox.innerHTML = `
+      <button class="image-lightbox-close" type="button" aria-label="Close expanded image">&times;</button>
+      <img src="" alt="">`;
+    document.body.appendChild(lightbox);
+
+    let trigger = null;
+    const closeButton = lightbox.querySelector(".image-lightbox-close");
+    const expandedImage = lightbox.querySelector("img");
+
+    function open(cardImage) {
+      const image = cardImage.querySelector("img");
+      if (!image) return;
+      trigger = cardImage;
+      expandedImage.src = image.currentSrc || image.src;
+      expandedImage.alt = image.alt;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!lightbox.classList.contains("open")) return;
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+      expandedImage.src = "";
+      if (trigger && document.body.contains(trigger)) trigger.focus();
+    }
+
+    closeButton.addEventListener("click", close);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+
+    return { open };
   }
 
   // Silently preload the images on either side so they're ready before the slide
@@ -218,11 +265,23 @@ import { addToCart, clearCart } from "./cart.js";
 
   function init() {
     showCheckoutBanner();
+    const imageLightbox = createImageLightbox();
 
     // Delegated Add to Cart handler — works across carousel re-renders.
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".card-view-btn");
       if (btn && btn.dataset.productId) addToCartHandler(btn.dataset.productId, btn);
+
+      const cardImage = e.target.closest(".card-image[data-expandable]");
+      if (cardImage) imageLightbox.open(cardImage);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const cardImage = e.target.closest(".card-image[data-expandable]");
+      if (!cardImage) return;
+      e.preventDefault();
+      imageLightbox.open(cardImage);
     });
 
     document.querySelectorAll(".filter-btn").forEach(btn => {

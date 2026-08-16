@@ -168,7 +168,8 @@ footer a img { border-radius:50%; filter:grayscale(1); opacity:.85; }
 @media (max-width:540px) {
   .blog-grid { gap:3.5rem!important; }
   .blog-post-hero { height:115vw!important; }
-  .carousel-wrapper { padding:3.5rem 3rem!important; }
+  .carousel-wrapper { padding:2.5rem .5rem!important; }
+  .card-image { aspect-ratio:3/4!important; }
   .contact-page { padding:0!important; }
   .contact-card { min-height:0; }
   .contact-image-panel { min-height:380px; }
