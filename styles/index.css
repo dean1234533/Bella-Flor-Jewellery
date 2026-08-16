@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Montserrat', sans-serif; 
-      background: #111; 
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #fdf8f0 0%, #fff 50%, #fdf5f5 100%);
     }
 
     #hero {
@@ -235,4 +235,262 @@ footer a:hover {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+}
+
+/* =============================================
+   HOMEPAGE CONTENT SECTIONS (below the hero)
+   ============================================= */
+
+.home-section {
+  padding: 3.5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.home-section h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+
+.home-section > p.home-lede {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  color: #555;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.home-lede a,
+.home-faq-item p a {
+  color: var(--brown);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.home-contact-mini .home-lede {
+  color: #cfc7ba;
+}
+
+/* Trust badges */
+.trust-badges {
+  background: var(--cream);
+}
+
+.trust-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem 3rem;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-dark);
+}
+
+.trust-badge-icon {
+  color: var(--gold-mid);
+  font-size: 1.1rem;
+}
+
+/* Rating snippet */
+.home-rating {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.home-rating-stars {
+  color: var(--gold);
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+}
+
+.home-rating a {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: var(--brown);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--brown);
+}
+
+/* Pricing teaser */
+.home-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.home-price-card {
+  text-align: center;
+  padding: 1.6rem 1rem;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.home-price-card .price {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  margin: 0.3rem 0 0.2rem;
+}
+
+.home-price-card .price-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Generic dark CTA button (for light-background sections) */
+.btn-dark-cta {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.home-cta-center {
+  text-align: center;
+}
+
+/* FAQ */
+.home-faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.home-faq-item {
+  border-bottom: 0.5px solid var(--border);
+}
+
+.home-faq-item summary {
+  cursor: pointer;
+  padding: 1.1rem 0.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.home-faq-item summary::after {
+  content: '+';
+  font-size: 1.3rem;
+  color: var(--gold-mid);
+  flex-shrink: 0;
+}
+
+.home-faq-item[open] summary::after {
+  content: '\2212';
+}
+
+.home-faq-item p {
+  padding: 0 0.2rem 1.2rem;
+  color: #555;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* Quick enquiry mini-form */
+.home-contact-mini {
+  background: var(--dark);
+  color: #eee;
+}
+
+.home-contact-mini h2 {
+  color: var(--gold-light);
+}
+
+.home-contact-mini > p.home-lede {
+  color: #cfc7ba;
+}
+
+.home-contact-links {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.home-contact-links a {
+  color: var(--gold-mid);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-mini-form {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.home-mini-form label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #cfc7ba;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.home-mini-form input,
+.home-mini-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1c1c1c;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+}
+
+.home-mini-form button {
+  margin-top: 0.4rem;
+  background: var(--gold);
+  color: #0a0a0a;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.home-mini-form .mini-form-success {
+  display: none;
+  color: var(--gold-light);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.home-mini-form .mini-form-success.visible {
+  display: block;
 }

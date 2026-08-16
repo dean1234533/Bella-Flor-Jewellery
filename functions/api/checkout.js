@@ -37,29 +37,53 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json().catch(() => ({}));
-    const id = Number(body.id);
 
-    const product = PRODUCTS.find((p) => p.id === id);
-    if (!product) return json({ error: "Product not found." }, 400);
+    // Accept either the new basket shape ({ items: [{id, qty}, ...] }) or
+    // the old single-item shape ({ id }) so nothing breaks mid-deploy.
+    const rawItems = Array.isArray(body.items)
+      ? body.items
+      : body.id != null
+        ? [{ id: body.id, qty: 1 }]
+        : [];
 
-    // Absolute https URL for the product image so Stripe can display it.
+    // Server-side validation — never trust client-sent ids/quantities/prices.
+    // Every price is re-read from products.js below, so a tampered request
+    // body can at most change WHICH products are bought, never their price.
+    const MAX_QTY = 20;
+    const cartLines = [];
+    for (const raw of rawItems) {
+      const id = Number(raw && raw.id);
+      const product = PRODUCTS.find((p) => p.id === id);
+      if (!product) continue; // unknown/removed product — skip it
+      const qty = Math.max(1, Math.min(MAX_QTY, Math.round(Number(raw.qty)) || 1));
+      const existing = cartLines.find((l) => l.product.id === id);
+      if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
+      else cartLines.push({ product, qty });
+    }
+
+    if (cartLines.length === 0) return json({ error: "Your basket is empty." }, 400);
+
     const origin = new URL(request.url).origin;
-    const imageUrl = `${origin}/${product.image}`;
 
     // Stripe's API takes form-encoded params with bracket notation.
     const params = new URLSearchParams();
     params.set("mode", "payment");
-    params.set("success_url", `${origin}/collection?checkout=success&item=${product.id}`);
+    params.set("success_url", `${origin}/collection?checkout=success`);
     params.set("cancel_url", `${origin}/collection?checkout=cancel`);
     params.set("shipping_address_collection[allowed_countries][0]", "GB");
-    // Store the product id so the webhook can rebuild the order for the email.
-    params.set("metadata[product_id]", String(product.id));
-    params.set("line_items[0][quantity]", "1");
-    params.set("line_items[0][price_data][currency]", product.currency || "gbp");
-    params.set("line_items[0][price_data][unit_amount]", String(Math.round(product.price * 100)));
-    params.set("line_items[0][price_data][product_data][name]", product.name);
-    params.set("line_items[0][price_data][product_data][description]", product.material);
-    params.set("line_items[0][price_data][product_data][images][0]", imageUrl);
+    // Store a compact [id, qty] list so the webhook can rebuild the full
+    // order for the confirmation email.
+    params.set("metadata[cart]", JSON.stringify(cartLines.map((l) => [l.product.id, l.qty])));
+
+    cartLines.forEach((line, i) => {
+      const imageUrl = `${origin}/${line.product.image}`;
+      params.set(`line_items[${i}][quantity]`, String(line.qty));
+      params.set(`line_items[${i}][price_data][currency]`, line.product.currency || "gbp");
+      params.set(`line_items[${i}][price_data][unit_amount]`, String(Math.round(line.product.price * 100)));
+      params.set(`line_items[${i}][price_data][product_data][name]`, line.product.name);
+      params.set(`line_items[${i}][price_data][product_data][description]`, line.product.material);
+      params.set(`line_items[${i}][price_data][product_data][images][0]`, imageUrl);
+    });
 
     const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",

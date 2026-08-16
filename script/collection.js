@@ -3,6 +3,7 @@
 // =============================================
 
 import PRODUCTS from "./products.js";
+import { addToCart, clearCart } from "./cart.js";
 
 (function () {
   // Products come from the single source of truth: script/products.js
@@ -24,30 +25,16 @@ import PRODUCTS from "./products.js";
     return name.split(" ").slice(0, 2).map(w => w[0]).join("");
   }
 
-  // ── Buy Now → ask the serverless function to create a Stripe Checkout
-  //    Session from products.js, then send the customer to Stripe. ──
-  async function buyNow(id, btn) {
+  // ── Add to Cart → add the piece to the site-wide basket (script/cart.js). ──
+  function addToCartHandler(id, btn) {
     const original = btn.textContent;
+    addToCart(id, 1);
+    btn.textContent = "Added ✓";
     btn.disabled = true;
-    btn.textContent = "Loading…";
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) {
-        window.location.href = data.url;        // redirect to Stripe Checkout
-        return;                                 // keep button disabled during nav
-      }
-      throw new Error(data.error || "Checkout failed");
-    } catch (err) {
-      console.error(err);
-      alert("Sorry, we couldn't start checkout. Please try again.");
-      btn.disabled = false;
+    setTimeout(() => {
       btn.textContent = original;
-    }
+      btn.disabled = false;
+    }, 1200);
   }
 
   function buildCard(piece, position) {
@@ -68,7 +55,7 @@ import PRODUCTS from "./products.js";
         <p class="card-description">${piece.description}</p>
         <div class="card-footer">
           <span class="card-price">£${piece.price}</span>
-          <button class="card-view-btn" data-buy-id="${piece.id}">Buy Now</button>
+          <button class="card-view-btn" data-product-id="${piece.id}">Add to Cart</button>
         </div>
       </div>`;
     return card;
@@ -197,28 +184,18 @@ import PRODUCTS from "./products.js";
     if (status !== "success" && status !== "cancel") return;
 
     const isSuccess = status === "success";
-
-    // If we know which item was bought, show its image (click to enlarge).
-    const boughtId = Number(params.get("item"));
-    const product = isSuccess ? pieces.find((p) => p.id === boughtId) : null;
-    const thumb = product
-      ? `<a class="checkout-banner-thumb" href="${product.image}" target="_blank" aria-label="View ${product.name} full size">
-           <img src="${product.image}" alt="${product.name}">
-         </a>`
-      : `<span class="checkout-banner-icon">${isSuccess ? "✓" : "!"}</span>`;
+    if (isSuccess) clearCart(); // the order is placed — empty the basket
 
     const banner = document.createElement("div");
     banner.className = `checkout-banner ${isSuccess ? "success" : "cancel"}`;
     banner.setAttribute("role", "status");
     banner.innerHTML = `
-      ${thumb}
+      <span class="checkout-banner-icon">${isSuccess ? "✓" : "!"}</span>
       <div class="checkout-banner-text">
-        <p class="checkout-banner-title">${isSuccess
-          ? (product ? `Thank you! Your ${product.name} is on its way` : "Thank you for your order!")
-          : "Checkout cancelled"}</p>
+        <p class="checkout-banner-title">${isSuccess ? "Thank you for your order!" : "Checkout cancelled"}</p>
         <p class="checkout-banner-sub">${isSuccess
           ? "Your payment was successful — a confirmation email is on its way."
-          : "No payment was taken. Your bracelet is still here whenever you're ready."}</p>
+          : "No payment was taken. Your basket is still here whenever you're ready."}</p>
       </div>
       <button class="checkout-banner-close" aria-label="Dismiss">&times;</button>`;
     document.body.appendChild(banner);
@@ -242,10 +219,10 @@ import PRODUCTS from "./products.js";
   function init() {
     showCheckoutBanner();
 
-    // Delegated Buy Now handler — works across carousel re-renders.
+    // Delegated Add to Cart handler — works across carousel re-renders.
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".card-view-btn");
-      if (btn && btn.dataset.buyId) buyNow(btn.dataset.buyId, btn);
+      if (btn && btn.dataset.productId) addToCartHandler(btn.dataset.productId, btn);
     });
 
     document.querySelectorAll(".filter-btn").forEach(btn => {

@@ -60,8 +60,7 @@ export async function onRequestPost(context) {
 
 // ── Build and send the confirmation email via Resend ──────────────
 async function sendOrderEmail(session, env, origin) {
-  const productId = Number(session.metadata && session.metadata.product_id);
-  const product = PRODUCTS.find((p) => p.id === productId);
+  const items = parseCartMetadata(session.metadata);
 
   const customer = session.customer_details || {};
   const to = customer.email;
@@ -72,17 +71,16 @@ async function sendOrderEmail(session, env, origin) {
 
   const currency = (session.currency || "gbp").toUpperCase();
   const total = formatMoney(session.amount_total, currency);
-  const unit = product ? formatMoney(Math.round(product.price * 100), currency) : total;
-  const name = product ? product.name : "Your order";
-  const material = product ? product.material : "";
-  const imageUrl = product ? `${origin}/${product.image}` : "";
   const orderRef = (session.id || "").replace("cs_", "").slice(0, 12).toUpperCase();
-
   const shipping = formatAddress(session.shipping_details || session.customer_details);
+
+  const subjectName = items.length === 1
+    ? items[0].product.name
+    : `${items.length} items`;
 
   const html = orderEmailHtml({
     customerName: customer.name || "there",
-    name, material, imageUrl, unit, total, orderRef, shipping, origin,
+    items, currency, total, orderRef, shipping, origin,
   });
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -95,7 +93,7 @@ async function sendOrderEmail(session, env, origin) {
       from: env.FROM_EMAIL || DEFAULT_FROM,
       to: [to],
       ...(env.STORE_EMAIL ? { bcc: [env.STORE_EMAIL] } : {}),
-      subject: `Your Bella Flor order is confirmed — ${name}`,
+      subject: `Your Bella Flor order is confirmed — ${subjectName}`,
       html,
     }),
   });
@@ -106,9 +104,53 @@ async function sendOrderEmail(session, env, origin) {
   }
 }
 
-// ── Branded HTML email. Image is wrapped in a link to the full-size
-//    file, so tapping/clicking it opens the photo big in the browser. ──
-function orderEmailHtml({ customerName, name, material, imageUrl, unit, total, orderRef, shipping, origin }) {
+// Rebuilds the basket from checkout.js's compact metadata[cart] = "[[id,qty],...]".
+// Falls back to the old single-item metadata[product_id] for any in-flight
+// sessions created just before this deploy.
+function parseCartMetadata(metadata) {
+  metadata = metadata || {};
+  let pairs = [];
+  if (metadata.cart) {
+    try {
+      pairs = JSON.parse(metadata.cart);
+    } catch {
+      pairs = [];
+    }
+  } else if (metadata.product_id) {
+    pairs = [[Number(metadata.product_id), 1]];
+  }
+
+  return pairs
+    .map(([id, qty]) => ({ product: PRODUCTS.find((p) => p.id === Number(id)), qty: Number(qty) || 1 }))
+    .filter((line) => line.product);
+}
+
+// ── Branded HTML email. Each item's image links to the full-size file,
+//    so tapping/clicking it opens the photo big in the browser. ──
+function orderEmailHtml({ customerName, items, currency, total, orderRef, shipping, origin }) {
+  const rows = items.map(({ product, qty }) => {
+    const imageUrl = `${origin}/${product.image}`;
+    const lineTotal = formatMoney(Math.round(product.price * qty * 100), currency);
+    return `
+        <tr><td style="padding:0 32px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #efe6d6;border-radius:14px;overflow:hidden;margin-bottom:14px;">
+            <tr>
+              <td width="112" style="padding:14px;vertical-align:top;">
+                <a href="${imageUrl}" target="_blank" style="display:block;text-decoration:none;">
+                  <img src="${imageUrl}" width="84" alt="${escapeHtml(product.name)}" style="display:block;width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid #efe6d6;" />
+                </a>
+              </td>
+              <td style="padding:14px 14px 14px 0;vertical-align:top;">
+                <div style="font-size:15px;font-weight:600;color:#3a2f1d;">${escapeHtml(product.name)}</div>
+                <div style="font-size:12px;color:#9C917E;margin-top:2px;">${escapeHtml(product.material)}</div>
+                <div style="font-size:12px;color:#6f6552;margin-top:8px;">Quantity: ${qty}</div>
+                <div style="font-size:14px;color:#7A5D2F;font-weight:600;margin-top:4px;">${lineTotal}</div>
+              </td>
+            </tr>
+          </table>
+        </td></tr>`;
+  }).join("");
+
   return `<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:0;background:#fbf6ef;font-family:'Helvetica Neue',Arial,sans-serif;color:#3a2f1d;">
@@ -127,25 +169,8 @@ function orderEmailHtml({ customerName, name, material, imageUrl, unit, total, o
           <p style="margin:14px 0 0;font-size:12px;color:#9C917E;">Order reference: <strong style="color:#7A5D2F;">#${escapeHtml(orderRef)}</strong></p>
         </td></tr>
 
-        <tr><td style="padding:20px 32px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #efe6d6;border-radius:14px;overflow:hidden;">
-            <tr>
-              <td width="160" style="padding:16px;vertical-align:top;">
-                ${imageUrl ? `
-                <a href="${imageUrl}" target="_blank" style="display:block;text-decoration:none;">
-                  <img src="${imageUrl}" width="128" alt="${escapeHtml(name)}" style="display:block;width:128px;height:128px;object-fit:cover;border-radius:12px;border:1px solid #efe6d6;" />
-                  <span style="display:block;margin-top:8px;font-size:11px;color:#a89a82;text-align:center;">Tap image to view full size</span>
-                </a>` : ""}
-              </td>
-              <td style="padding:16px 16px 16px 0;vertical-align:top;">
-                <div style="font-size:16px;font-weight:600;color:#3a2f1d;">${escapeHtml(name)}</div>
-                <div style="font-size:13px;color:#9C917E;margin-top:4px;">${escapeHtml(material)}</div>
-                <div style="font-size:13px;color:#6f6552;margin-top:10px;">Quantity: 1</div>
-                <div style="font-size:15px;color:#7A5D2F;font-weight:600;margin-top:6px;">${unit}</div>
-              </td>
-            </tr>
-          </table>
-        </td></tr>
+        <tr><td style="height:20px;"></td></tr>
+        ${rows}
 
         <tr><td style="padding:0 32px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
