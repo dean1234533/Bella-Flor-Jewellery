@@ -16,14 +16,18 @@
 //   RESEND_API_KEY         re_...      (from your Resend dashboard)
 //   FROM_EMAIL  (optional) e.g. "Bella Flor Jewellery <orders@bellaflorjewellery.co.uk>"
 //   STORE_EMAIL (optional) your own address — gets BCC'd a copy of every order
+// Also records each paid order in the admin dashboard (D1), reduces
+// stock, and sends a push notification to the admin's devices.
 // =============================================================
 
-import PRODUCTS from "../../script/products.js";
+import { getCatalog, absUrl, db, hasDb } from "../_lib/db.js";
+import { notifyAdmin } from "../_lib/push.js";
 
 const DEFAULT_FROM = "Bella Flor Jewellery <onboarding@resend.dev>";
 
 export async function onRequestPost(context) {
   const { request, env } = context;
+  const origin = new URL(request.url).origin;
 
   const rawBody = await request.text();
   const sig = request.headers.get("stripe-signature");
@@ -46,8 +50,19 @@ export async function onRequestPost(context) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
     if (session.payment_status === "paid") {
+      const catalog = await getCatalog(env, { includeHidden: true });
+
+      // Record the order for the admin dashboard first, so it is saved
+      // even if the confirmation email fails.
       try {
-        await sendOrderEmail(session, env, new URL(request.url).origin);
+        const isNew = await recordOrder(session, env, catalog);
+        if (isNew) context.waitUntil(notifyAdmin(env));
+      } catch (err) {
+        console.error("Failed to record order:", err);
+      }
+
+      try {
+        await sendOrderEmail(session, env, origin, catalog);
       } catch (err) {
         console.error("Failed to send order email:", err);
         // Still return 200 so Stripe doesn't retry forever; the payment is fine.
@@ -59,8 +74,8 @@ export async function onRequestPost(context) {
 }
 
 // ── Build and send the confirmation email via Resend ──────────────
-async function sendOrderEmail(session, env, origin) {
-  const items = parseCartMetadata(session.metadata);
+async function sendOrderEmail(session, env, origin, catalog) {
+  const items = parseCartMetadata(session.metadata, catalog);
 
   const customer = session.customer_details || {};
   const to = customer.email;
@@ -104,10 +119,40 @@ async function sendOrderEmail(session, env, origin) {
   }
 }
 
+// ── Save the order in D1 (idempotent: Stripe may deliver an event twice).
+//    Returns true only the first time, so we notify and reduce stock once. ──
+async function recordOrder(session, env, catalog) {
+  if (!hasDb(env)) return false;
+  const DB = await db(env);
+  const items = parseCartMetadata(session.metadata, catalog);
+  const customer = session.customer_details || {};
+  const ship = session.shipping_details || customer;
+  const a = ship.address || {};
+  const address = [ship.name, a.line1, a.line2, [a.city, a.postal_code].filter(Boolean).join(", "), a.country]
+    .filter(Boolean).join("\n");
+  const snapshot = items.map(({ product, qty }) => ({
+    id: product.id, name: product.name, price: product.price, qty, image: product.image,
+  }));
+  const ref = (session.id || "").replace("cs_", "").slice(0, 12).toUpperCase();
+
+  const res = await DB.prepare(
+    `INSERT OR IGNORE INTO orders (stripe_session, ref, customer_name, email, phone, address, items, total_pence, currency)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(session.id, ref, customer.name || "", customer.email || "", customer.phone || "", address,
+         JSON.stringify(snapshot), session.amount_total || 0, session.currency || "gbp").run();
+  if (!res.meta.changes) return false;
+
+  const stock = items.map(({ product, qty }) =>
+    DB.prepare("UPDATE products SET stock = MAX(stock - ?, 0), updated_at = datetime('now') WHERE id = ? AND stock IS NOT NULL")
+      .bind(qty, product.id));
+  if (stock.length) await DB.batch(stock);
+  return true;
+}
+
 // Rebuilds the basket from checkout.js's compact metadata[cart] = "[[id,qty],...]".
 // Falls back to the old single-item metadata[product_id] for any in-flight
 // sessions created just before this deploy.
-function parseCartMetadata(metadata) {
+function parseCartMetadata(metadata, catalog) {
   metadata = metadata || {};
   let pairs = [];
   if (metadata.cart) {
@@ -121,7 +166,7 @@ function parseCartMetadata(metadata) {
   }
 
   return pairs
-    .map(([id, qty]) => ({ product: PRODUCTS.find((p) => p.id === Number(id)), qty: Number(qty) || 1 }))
+    .map(([id, qty]) => ({ product: catalog.find((p) => p.id === Number(id)), qty: Number(qty) || 1 }))
     .filter((line) => line.product);
 }
 
@@ -129,7 +174,7 @@ function parseCartMetadata(metadata) {
 //    so tapping/clicking it opens the photo big in the browser. ──
 function orderEmailHtml({ customerName, items, currency, total, orderRef, shipping, origin }) {
   const rows = items.map(({ product, qty }) => {
-    const imageUrl = `${origin}/${product.image}`;
+    const imageUrl = absUrl(origin, product.image);
     const lineTotal = formatMoney(Math.round(product.price * qty * 100), currency);
     return `
         <tr><td style="padding:0 32px;">

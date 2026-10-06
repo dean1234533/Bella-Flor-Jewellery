@@ -14,3 +14,11 @@
 
 /script/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=3600
+
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
+
+/admin/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /admin/

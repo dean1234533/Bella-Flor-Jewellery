@@ -3,10 +3,10 @@
 // Route: POST /api/checkout
 // -------------------------------------------------------------
 // Creates a Stripe Checkout Session on the fly from the SAME
-// catalog the website uses (script/products.js). Price, name and
-// image are read at checkout time, so Stripe ALWAYS charges and
-// shows exactly what the site shows. Change products.js once and
-// both update together.
+// live catalog (managed in the admin dashboard, falling back to
+// script/products.js). Price, name and image are read at checkout
+// time, so Stripe ALWAYS charges and shows exactly what the site
+// shows.
 //
 // Runs on the Cloudflare Workers runtime (not Node), so it calls
 // the Stripe REST API directly with fetch — no Node SDK, no
@@ -17,7 +17,7 @@
 //   Environment variables (use a TEST key first: sk_test_...).
 // =============================================================
 
-import PRODUCTS from "../../script/products.js";
+import { getCatalog, absUrl, soldOut } from "../_lib/db.js";
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -47,9 +47,10 @@ export async function onRequestPost(context) {
         : [];
 
     // Server-side validation — never trust client-sent ids/quantities/prices.
-    // Every price is re-read from products.js below, so a tampered request
+    // Every price is re-read from the catalog below, so a tampered request
     // body can at most change WHICH products are bought, never their price.
     const MAX_QTY = 20;
+    const PRODUCTS = await getCatalog(env);
     const cartLines = [];
     for (const raw of rawItems) {
       const id = Number(raw && raw.id);
@@ -59,6 +60,14 @@ export async function onRequestPost(context) {
       const existing = cartLines.find((l) => l.product.id === id);
       if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
       else cartLines.push({ product, qty });
+    }
+
+    // Stock check (products with no stock count are always available).
+    for (const { product, qty } of cartLines) {
+      if (soldOut(product)) return json({ error: `Sorry, ${product.name} has just sold out.` }, 409);
+      if (product.stock !== null && qty > product.stock) {
+        return json({ error: `Sorry, only ${product.stock} of ${product.name} left.` }, 409);
+      }
     }
 
     if (cartLines.length === 0) return json({ error: "Your basket is empty." }, 400);
@@ -76,13 +85,13 @@ export async function onRequestPost(context) {
     params.set("metadata[cart]", JSON.stringify(cartLines.map((l) => [l.product.id, l.qty])));
 
     cartLines.forEach((line, i) => {
-      const imageUrl = `${origin}/${line.product.image}`;
+      const imageUrl = absUrl(origin, line.product.image);
       params.set(`line_items[${i}][quantity]`, String(line.qty));
       params.set(`line_items[${i}][price_data][currency]`, line.product.currency || "gbp");
       params.set(`line_items[${i}][price_data][unit_amount]`, String(Math.round(line.product.price * 100)));
       params.set(`line_items[${i}][price_data][product_data][name]`, line.product.name);
-      params.set(`line_items[${i}][price_data][product_data][description]`, line.product.material);
-      params.set(`line_items[${i}][price_data][product_data][images][0]`, imageUrl);
+      params.set(`line_items[${i}][price_data][product_data][description]`, line.product.material || line.product.name);
+      if (imageUrl) params.set(`line_items[${i}][price_data][product_data][images][0]`, imageUrl);
     });
 
     const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {

@@ -348,6 +348,8 @@
   font-family: 'Montserrat', sans-serif; /* Swapped to Montserrat */
 }
 
+.card-view-btn:disabled { opacity: .55; cursor: not-allowed; }
+
 .card-view-btn:hover {
   background: #3a2e24;
   color:white

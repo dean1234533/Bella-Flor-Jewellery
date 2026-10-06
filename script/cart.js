@@ -13,7 +13,7 @@
 // consent banner.
 // =============================================================
 
-import PRODUCTS from "./products.js";
+import { PRODUCTS, catalogReady } from "./catalog.js";
 
 const STORAGE_KEY = "bf-cart";
 const MAX_QTY = 20;
@@ -37,7 +37,7 @@ function setCart(items) {
 export function addToCart(id, qty = 1) {
   id = Number(id);
   const product = PRODUCTS.find((p) => p.id === id);
-  if (!product) return;
+  if (!product || product.soldOut) return;
 
   const items = getCart();
   const line = items.find((l) => l.id === id);
@@ -253,10 +253,13 @@ async function checkout() {
       window.location.href = data.url;
       return;
     }
-    throw new Error(data.error || "Checkout failed");
+    const known = res.status === 409 && data.error; // e.g. a piece just sold out
+    const failure = new Error(data.error || "Checkout failed");
+    failure.userMessage = known ? data.error : "";
+    throw failure;
   } catch (err) {
     console.error(err);
-    alert("Sorry, we couldn't start checkout. Please try again.");
+    alert(err.userMessage || "Sorry, we couldn't start checkout. Please try again.");
     checkoutBtn.disabled = false;
     checkoutBtn.textContent = original;
   }
@@ -267,6 +270,8 @@ function init() {
   injectToggleButtons();
   injectDrawer();
   renderCart();
+  // Re-draw once the live prices/names have loaded.
+  catalogReady.then(renderCart);
 }
 
 if (document.readyState === "loading") {

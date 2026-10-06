@@ -2,13 +2,13 @@
 // COLLECTION PAGE JS — collection.js
 // =============================================
 
-import PRODUCTS from "./products.js";
+import { PRODUCTS, catalogReady } from "./catalog.js";
 import { addToCart, clearCart } from "./cart.js";
 
 (function () {
-  // Products come from the single source of truth: script/products.js
-  // Edit prices / images / names there once and both the site and the
-  // Stripe checkout update together.
+  // Products come from the live catalog (managed in the admin dashboard,
+  // loaded by script/catalog.js). PRODUCTS is updated in place, so this
+  // reference always sees the current list.
   const pieces = PRODUCTS;
 
   let currentFilter     = "All";
@@ -57,7 +57,9 @@ import { addToCart, clearCart } from "./cart.js";
         <p class="card-description">${piece.description}</p>
         <div class="card-footer">
           <span class="card-price">£${piece.price}</span>
-          <button class="card-view-btn" data-product-id="${piece.id}">Add to Cart</button>
+          ${piece.soldOut
+            ? `<button class="card-view-btn" disabled>Sold out</button>`
+            : `<button class="card-view-btn" data-product-id="${piece.id}">Add to Cart</button>`}
         </div>
       </div>`;
     return card;
@@ -153,10 +155,13 @@ import { addToCart, clearCart } from "./cart.js";
   function renderCarousel(direction) {
     const filtered = getFiltered();
     const total    = filtered.length;
-    if (total === 0) return;
+    const track    = document.getElementById("cards-track");
+    if (total === 0) {
+      if (!direction) track.innerHTML = `<p style="text-align:center;padding:48px 16px;">New pieces are coming soon.</p>`;
+      return;
+    }
     if (currentIndex >= total) currentIndex = 0;
 
-    const track    = document.getElementById("cards-track");
     const isMobile = window.innerWidth < 768;
 
     updateDotsAndCounter(filtered, total);
@@ -327,5 +332,10 @@ import { addToCart, clearCart } from "./cart.js";
     renderCarousel(); // initial paint
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  // Wait for the live catalog (falls back to the static one if it can't load).
+  const domReady = new Promise((resolve) => {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", resolve);
+    else resolve();
+  });
+  Promise.all([domReady, catalogReady]).then(init);
 })();

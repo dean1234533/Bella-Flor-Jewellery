@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bella Flor Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#141110">
+  <link rel="manifest" href="/admin/manifest.webmanifest">
+  <link rel="icon" href="/admin/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="/admin/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="BF Admin">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/admin/admin.css?v=1">
+</head>
+<body>
+
+<!-- ── Sign in ─────────────────────────────────────────── -->
+<main id="login" class="login" hidden>
+  <form id="login-form" class="login-card" autocomplete="on">
+    <img src="/admin/icon-192.png" alt="" width="84" height="84">
+    <h1>Bella Flor Admin</h1>
+    <p class="muted">Sign in to manage your stock, orders and enquiries.</p>
+    <label class="sr-only" for="password">Password</label>
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+    <p id="login-error" class="error" role="alert" hidden></p>
+    <button class="btn primary block" type="submit">Sign in</button>
+  </form>
+</main>
+
+<!-- ── App ─────────────────────────────────────────────── -->
+<div id="app" hidden>
+  <header class="topbar">
+    <img src="/admin/icon-192.png" alt="" width="34" height="34">
+    <h1 id="screen-title">Inbox</h1>
+  </header>
+
+  <main class="screens">
+    <!-- Inbox -->
+    <section id="screen-inbox" class="screen">
+      <div class="seg" role="tablist">
+        <button class="seg-btn active" data-seg="orders" role="tab">Orders <span class="pill" id="pill-orders" hidden></span></button>
+        <button class="seg-btn" data-seg="enquiries" role="tab">Enquiries <span class="pill" id="pill-enquiries" hidden></span></button>
+      </div>
+      <div id="list-orders" class="list"></div>
+      <div id="list-enquiries" class="list" hidden></div>
+    </section>
+
+    <!-- Stock -->
+    <section id="screen-stock" class="screen" hidden>
+      <div class="stock-head">
+        <input id="stock-search" type="search" placeholder="Search stock…" aria-label="Search stock">
+        <button class="btn primary" id="add-product" type="button">+ Add piece</button>
+      </div>
+      <p id="stock-summary" class="muted small"></p>
+      <div id="list-stock" class="list"></div>
+    </section>
+
+    <!-- Settings -->
+    <section id="screen-settings" class="screen" hidden>
+      <div class="card">
+        <h2>Notifications</h2>
+        <p class="muted small" id="push-status">Checking…</p>
+        <div class="row">
+          <button class="btn primary" id="push-enable" type="button" hidden>Turn on notifications</button>
+          <button class="btn" id="push-test" type="button" hidden>Send test</button>
+          <button class="btn danger-ghost" id="push-disable" type="button" hidden>Turn off</button>
+        </div>
+        <p class="muted small" id="push-help"></p>
+      </div>
+      <div class="card">
+        <h2>Install the app</h2>
+        <p class="muted small" id="install-status">Add this dashboard to your home screen for one-tap access and notifications.</p>
+        <button class="btn primary" id="install-btn" type="button" hidden>Install app</button>
+      </div>
+      <div class="card">
+        <h2>Account</h2>
+        <button class="btn" id="logout" type="button">Sign out</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <button class="tab active" data-screen="inbox"><svg viewBox="0 0 24 24"><path d="M4 13l2.5-7h11L20 13v6H4v-6Zm0 0h5l1 2h4l1-2h5"/></svg><span>Inbox</span><i class="dot" id="dot-inbox" hidden></i></button>
+    <button class="tab" data-screen="stock"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 9l8-4.5M12 12L4 7.5M12 12v9"/></svg><span>Stock</span></button>
+    <button class="tab" data-screen="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2Z"/></svg><span>Settings</span></button>
+  </nav>
+</div>
+
+<!-- ── Add / edit piece ────────────────────────────────── -->
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-backdrop" data-close></div>
+  <form id="product-form" class="sheet-panel" novalidate>
+    <div class="sheet-head">
+      <h2 id="sheet-title">Add piece</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+    </div>
+
+    <div class="photo-row">
+      <div class="photo" id="photo-preview"><span>No photo</span></div>
+      <div>
+        <label class="btn" for="photo-input">Choose photo</label>
+        <input id="photo-input" type="file" accept="image/*" hidden>
+        <p class="muted small" id="photo-note">JPG, PNG or WebP. It's resized for you.</p>
+      </div>
+    </div>
+
+    <label>Name
+      <input id="f-name" type="text" maxlength="120" required placeholder="e.g. Blue &amp; Pink Duo Twist">
+    </label>
+    <div class="two">
+      <label>Price (£)
+        <input id="f-price" type="number" inputmode="decimal" min="0" step="0.01" required placeholder="18">
+      </label>
+      <label>Stock count
+        <input id="f-stock" type="number" inputmode="numeric" min="0" step="1" placeholder="Blank = not tracked">
+      </label>
+    </div>
+    <p class="muted small hint">Leave stock blank if you make to order. Enter a number to track it: it goes down with each order and shows "Sold out" at 0.</p>
+    <div class="two">
+      <label>Category
+        <select id="f-category"></select>
+      </label>
+      <label>Label
+        <input id="f-tag" type="text" maxlength="30" placeholder="e.g. New Arrival">
+      </label>
+    </div>
+    <label>Materials
+      <input id="f-material" type="text" maxlength="160" placeholder="e.g. Twisted Cord &amp; Lobster Clasp">
+    </label>
+    <label>Description
+      <textarea id="f-description" rows="4" maxlength="1000" placeholder="Describe the piece…"></textarea>
+    </label>
+    <div class="two">
+      <label>Card colour
+        <input id="f-color" type="color" value="#f5ecd9">
+      </label>
+      <label class="switch-row">
+        <span>Show on website</span>
+        <input id="f-active" type="checkbox" checked>
+      </label>
+    </div>
+
+    <p id="form-error" class="error" role="alert" hidden></p>
+    <div class="sheet-actions">
+      <button class="btn danger-ghost" id="delete-product" type="button" hidden>Delete</button>
+      <button class="btn primary grow" id="save-product" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- ── Install banner ──────────────────────────────────── -->
+<aside id="install-banner" class="install-banner" hidden aria-live="polite">
+  <img src="/admin/icon-192.png" alt="" width="44" height="44">
+  <div class="install-text">
+    <strong>Install Bella Flor Admin</strong>
+    <span id="install-banner-text">Get one-tap access and order alerts on this device.</span>
+  </div>
+  <button class="btn primary" id="install-banner-btn" type="button">Install</button>
+  <button class="icon-btn" id="install-banner-close" type="button" aria-label="Dismiss">&times;</button>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/admin/admin.js?v=1"></script>
+</body>
+</html>

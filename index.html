@@ -267,6 +267,7 @@
         <b aria-hidden="true">↗</b>
       </a>
       <form id="home-enquiry-form" class="home-mini-form" novalidate>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
         <input type="hidden" id="home-currentTime" name="time">
         <input type="hidden" id="home-currentDate" name="date">
         <input type="hidden" name="phone_number" value="">
@@ -445,12 +446,27 @@
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         if (this.checkValidity()) {
-          emailjs.sendForm('service_dqha001', 'template_4aa41hu', this)
-            .then(() => {
-              form.reset();
-              success.classList.add('visible');
-            }, (error) => {
-              alert('Oops! Something went wrong: ' + JSON.stringify(error));
+          // Save the enquiry for the admin dashboard alongside the email.
+          const formEl = this;
+          const saved = fetch('/api/enquiry', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: formEl.elements.from_name.value, email: formEl.elements.reply_to.value,
+              phone: '', message: formEl.elements.message.value,
+              website: formEl.elements.website.value, source: 'home'
+            })
+          }).then((r) => r.ok, () => false);
+
+          emailjs.sendForm('service_dqha001', 'template_4aa41hu', formEl)
+            .then(() => true, (error) => { console.error(error); return false; })
+            .then(async (emailOk) => {
+              if (emailOk || await saved) {
+                form.reset();
+                success.classList.add('visible');
+              } else {
+                alert('Oops! Something went wrong. Please try again or email us directly.');
+              }
             });
         }
       });
