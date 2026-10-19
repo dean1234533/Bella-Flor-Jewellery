@@ -29,12 +29,6 @@ function json(data, status = 200) {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  const secret = env.STRIPE_SECRET_KEY;
-  if (!secret) {
-    console.error("STRIPE_SECRET_KEY is not set in the environment.");
-    return json({ error: "Payment is not configured yet." }, 500);
-  }
-
   try {
     const body = await request.json().catch(() => ({}));
 
@@ -71,6 +65,12 @@ export async function onRequestPost(context) {
     }
 
     if (cartLines.length === 0) return json({ error: "Your basket is empty." }, 400);
+
+    const secret = env.STRIPE_SECRET_KEY;
+    if (!secret) {
+      console.error("STRIPE_SECRET_KEY is not set in the environment.");
+      return json({ error: "Payment is not configured yet." }, 500);
+    }
 
     const origin = new URL(request.url).origin;
 

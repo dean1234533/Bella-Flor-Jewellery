@@ -348,7 +348,9 @@
       setPhoto(data.image);
       note.textContent = "Photo uploaded ✓";
     } catch (ex) {
-      note.textContent = ex.message || "Upload failed.";
+      note.textContent = /decode|source image/i.test(ex.message || "")
+        ? "That file isn't a photo we can read. Please choose a JPG, PNG or WebP."
+        : ex.message || "Upload failed.";
     }
   });
 

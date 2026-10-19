@@ -13,7 +13,7 @@
 // consent banner.
 // =============================================================
 
-import { PRODUCTS, catalogReady } from "./catalog.js";
+import { PRODUCTS, catalogReady, esc } from "./catalog.js";
 
 const STORAGE_KEY = "bf-cart";
 const MAX_QTY = 20;
@@ -214,9 +214,9 @@ function renderCart() {
       .map(
         (l) => `
       <div class="cart-item" data-id="${l.id}">
-        <img class="cart-item-img" src="${l.product.image}" alt="${l.product.name}" width="64" height="64" loading="lazy">
+        ${l.product.image ? `<img class="cart-item-img" src="${esc(l.product.image)}" alt="${esc(l.product.name)}" width="64" height="64" loading="lazy">` : `<div class="cart-item-img" aria-hidden="true"></div>`}
         <div class="cart-item-body">
-          <p class="cart-item-name">${l.product.name}</p>
+          <p class="cart-item-name">${esc(l.product.name)}</p>
           <p class="cart-item-price">${money(l.product.price)}</p>
           <div class="cart-item-qty">
             <button type="button" class="cart-qty-btn" data-action="dec" aria-label="Decrease quantity">&minus;</button>
@@ -224,7 +224,7 @@ function renderCart() {
             <button type="button" class="cart-qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
           </div>
         </div>
-        <button type="button" class="cart-item-remove" aria-label="Remove ${l.product.name} from cart">&times;</button>
+        <button type="button" class="cart-item-remove" aria-label="Remove ${esc(l.product.name)} from cart">&times;</button>
       </div>`
       )
       .join("");
@@ -253,7 +253,8 @@ async function checkout() {
       window.location.href = data.url;
       return;
     }
-    const known = res.status === 409 && data.error; // e.g. a piece just sold out
+    // Show the server's message for stock problems (409) and an empty basket (400).
+    const known = (res.status === 409 || res.status === 400) && data.error;
     const failure = new Error(data.error || "Checkout failed");
     failure.userMessage = known ? data.error : "";
     throw failure;

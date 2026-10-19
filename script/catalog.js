@@ -26,3 +26,8 @@ export const catalogReady = (async () => {
     /* keep the static catalog */
   }
 })();
+
+// Escape admin-entered text before it goes into an innerHTML template.
+export function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}

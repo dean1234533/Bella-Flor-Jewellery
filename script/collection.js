@@ -2,7 +2,7 @@
 // COLLECTION PAGE JS — collection.js
 // =============================================
 
-import { PRODUCTS, catalogReady } from "./catalog.js";
+import { PRODUCTS, catalogReady, esc } from "./catalog.js";
 import { addToCart, clearCart } from "./cart.js";
 
 (function () {
@@ -42,24 +42,24 @@ import { addToCart, clearCart } from "./cart.js";
     const card   = document.createElement("div");
     card.className = "bracelet-card" + (isMain ? " main" : "");
     card.innerHTML = `
-      <div class="card-image" style="background:${piece.color}"${piece.image
-        ? ` data-expandable tabindex="0" role="button" aria-label="Expand image of ${piece.name}"`
+      <div class="card-image" style="background:${esc(piece.color)}"${piece.image
+        ? ` data-expandable tabindex="0" role="button" aria-label="Expand image of ${esc(piece.name)}"`
         : ""}>
         ${piece.image
-          ? `<img src="${piece.image}" class="card-img-content" alt="${piece.name}" loading="lazy">`
-          : `<div class="card-initials">${initials(piece.name)}</div>`}
-        <div class="card-tag-flag">${piece.tag}</div>
+          ? `<img src="${esc(piece.image)}" class="card-img-content" alt="${esc(piece.name)}" loading="lazy">`
+          : `<div class="card-initials">${esc(initials(piece.name))}</div>`}
+        <div class="card-tag-flag">${esc(piece.tag)}</div>
       </div>
       <div class="card-body">
-        <span class="card-tag-badge">${piece.tag}</span>
-        <p class="card-name">${piece.name}</p>
-        <p class="card-material">${piece.material}</p>
-        <p class="card-description">${piece.description}</p>
+        <span class="card-tag-badge">${esc(piece.tag)}</span>
+        <p class="card-name">${esc(piece.name)}</p>
+        <p class="card-material">${esc(piece.material)}</p>
+        <p class="card-description">${esc(piece.description)}</p>
         <div class="card-footer">
           <span class="card-price">£${piece.price}</span>
           ${piece.soldOut
             ? `<button class="card-view-btn" disabled>Sold out</button>`
-            : `<button class="card-view-btn" data-product-id="${piece.id}">Add to Cart</button>`}
+            : `<button class="card-view-btn" data-product-id="${esc(piece.id)}">Add to Cart</button>`}
         </div>
       </div>`;
     return card;
