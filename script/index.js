@@ -158,3 +158,25 @@
 
       sections.forEach((section) => observer.observe(section));
     })();
+
+
+// Secret admin shortcut: tap the logo 3 times quickly to open the admin
+// sign-in screen. On the home page a single tap just stays here.
+(function () {
+  const logos = document.querySelectorAll('.nav-logo');
+  let taps = 0;
+  let timer;
+  logos.forEach((logo) => {
+    logo.addEventListener('click', (event) => {
+      event.preventDefault();
+      taps += 1;
+      clearTimeout(timer);
+      if (taps >= 3) {
+        taps = 0;
+        window.location.href = '/admin/';
+        return;
+      }
+      timer = setTimeout(() => { taps = 0; }, 800);
+    });
+  });
+})();
