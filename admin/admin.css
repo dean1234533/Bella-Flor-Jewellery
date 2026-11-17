@@ -62,6 +62,7 @@ h1, h2 { margin: 0; line-height: 1.2; }
 .icon-btn { background: none; border: 0; color: var(--muted); font-size: 1.8rem; line-height: 1; padding: 4px 10px; cursor: pointer; }
 
 input, select, textarea {
+  -webkit-text-size-adjust: 100%;
   width: 100%; min-height: 46px; padding: 10px 12px; border-radius: 12px;
   border: 1px solid var(--line); background: var(--card); color: var(--ink);
   font: inherit; font-size: 16px; /* 16px stops iOS zooming on focus */
