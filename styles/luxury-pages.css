@@ -2,7 +2,7 @@
 :root { --bf-ink:#28231f; --bf-soft:#5f574e; --bf-ivory:#f5f0e8; --bf-paper:#fbf8f2; --bf-stone:#ded3c4; --bf-gold:#a7804d; --bf-line:rgba(49,38,28,.15); }
 html { scroll-behavior:smooth; }
 body { background:var(--bf-ivory)!important; color:var(--bf-ink); font-family:'Montserrat',sans-serif; }
-body>main { min-height:70vh; padding-top:100px!important; }
+main { min-height:70vh; padding-top:100px!important; }
 h1,h2,h3 { text-wrap:balance; }
 p { text-wrap:pretty; }
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:2px solid var(--bf-gold); outline-offset:3px; }
@@ -154,7 +154,7 @@ footer a img { border-radius:50%; filter:grayscale(1); opacity:.85; }
 .footer-bottom p { color:#9a8f83!important; font-size:.65rem!important; letter-spacing:.05em; }
 .footer-bottom a { display:inline!important; margin-left:1rem!important; color:#c6a777!important; font-size:.65rem!important; text-decoration:underline!important; }
 
-@media (min-width:1024px) { body>main { padding-top:120px!important; } }
+@media (min-width:1024px) { main { padding-top:120px!important; } }
 @media (max-width:800px) {
   .about-banner,.blog-banner,.tools-banner,.collection-header,.reviews-header { padding:4.5rem 1.25rem 6rem!important; }
   .about-banner::after,.blog-banner::after,.tools-banner::after,.collection-header::after,.reviews-header::after { right:1.25rem; bottom:1.5rem; }
