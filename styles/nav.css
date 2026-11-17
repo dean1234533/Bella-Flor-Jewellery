@@ -72,8 +72,9 @@
 .line2,
 .line3 {
   display: block;
-  width: 21px;
-  height: 1px;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
   background-color: #ffffff;
   transition: all 0.4s ease;
   transform-origin: center;
@@ -82,7 +83,7 @@
 /* Hamburger → X */
 .Active .line1 {
   transform: translateY(7px) rotate(45deg);
-  transition: ease 0.8s;
+  transition: transform .35s ease;
   background-color: white;
 }
 .Active .line2 {
@@ -92,7 +93,7 @@
 }
 .Active .line3 {
   transform: translateY(-7px) rotate(-45deg);
-  transition: ease 0.8s;
+  transition: transform .35s ease;
   background-color: white;
 }
 
