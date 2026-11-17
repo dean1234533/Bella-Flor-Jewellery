@@ -2,10 +2,10 @@
 // • caches the dashboard shell so it opens instantly / offline
 // • shows push notifications for new orders & enquiries
 
-const CACHE = "bf-admin-v6";
+const CACHE = "bf-admin-v7";
 const SHELL = [
   "/admin/",
-  "/admin/admin.css?v=3",
+  "/admin/admin.css?v=4",
   "/admin/admin.js?v=1",
   "/admin/manifest.webmanifest",
   "/admin/icon-192.png",
