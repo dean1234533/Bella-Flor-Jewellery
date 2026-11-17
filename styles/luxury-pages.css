@@ -105,7 +105,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .contact-form-panel h1 { color:var(--bf-ink)!important; font-family:'Libre Baskerville',serif!important; font-size:clamp(2.6rem,5vw,4.6rem)!important; font-weight:400!important; letter-spacing:-.045em!important; }
 .contact-form-panel>p { color:var(--bf-soft)!important; line-height:1.8!important; }
 .form-field label { color:#766a5d!important; font-size:.61rem!important; letter-spacing:.16em!important; }
-.form-field input,.form-field select,.form-field textarea { padding:.9rem 0 .9rem 2rem!important; border:0!important; border-bottom:1px solid var(--bf-line)!important; border-radius:0!important; background:transparent!important; }
+.form-field input,.form-field select,.form-field textarea { padding:.9rem 0!important; border:0!important; border-bottom:1px solid var(--bf-line)!important; border-radius:0!important; background:transparent!important; }
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus { border-color:var(--bf-gold)!important; box-shadow:none!important; }
 .submit-btn { border-radius:0!important; background:var(--bf-ink)!important; font-size:.68rem!important; letter-spacing:.14em; text-transform:uppercase; }
 .contact-info-footer { border-top:1px solid var(--bf-line)!important; color:var(--bf-soft)!important; }
