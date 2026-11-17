@@ -177,3 +177,8 @@ footer a img { border-radius:50%; filter:grayscale(1); opacity:.85; }
   .review-card { min-height:0; }
 }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important} }
+
+/* Clear the fixed nav when the page wrapper is itself the <main> element
+   (the rule above zeroes wrapper padding, which left headings under the nav). */
+main.about-page,main.blog-page,main.collection-page,main.contact-page,main.tools-page,main.reviews-page { padding-top:100px!important; }
+@media (min-width:1024px) { main.about-page,main.blog-page,main.collection-page,main.contact-page,main.tools-page,main.reviews-page { padding-top:120px!important; } }
